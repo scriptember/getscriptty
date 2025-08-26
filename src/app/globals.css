@@ -68,7 +68,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--muted));
+    background-color: hsl(var(--primary));
     border-radius: 6px;
     border: 3px solid hsl(var(--background));
   }
@@ -80,6 +80,6 @@
   /* For firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+    scrollbar-color: hsl(var(--primary)) hsl(var(--background));
   }
 }
