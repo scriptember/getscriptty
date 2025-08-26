@@ -50,7 +50,7 @@ export default function FaqPage() {
                 <AccordionItem key={index} value={`item-${index}`}>
                     <AccordionTrigger className="text-left text-lg hover:text-primary">
                         {faq.question}
-                    </A>
+                    </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground text-base">
                         {faq.answer}
                     </AccordionContent>
