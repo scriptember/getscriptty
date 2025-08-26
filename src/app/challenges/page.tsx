@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Award, Target, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const challenges = [
+const baseChallenges = [
   {
     title: "Personal Portfolio Website",
     description: "Build a stunning, responsive portfolio website to showcase your skills and projects. A great starting point for any developer.",
@@ -47,6 +47,8 @@ const challenges = [
     difficulty: "Advanced",
   },
 ];
+
+const challenges = Array.from({ length: 5 }).flatMap(() => baseChallenges);
 
 export default function ChallengesPage() {
   return (
