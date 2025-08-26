@@ -13,19 +13,21 @@ export default function Footer() {
       <div className="container max-w-screen-2xl mx-auto py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <Logo />
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Scriptember. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            <Link href="#" aria-label="Twitter">
-              <Twitter className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
-            <Link href="#" aria-label="GitHub">
-              <Github className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
-            <Link href="#" aria-label="Discord">
-              <DiscordIcon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+             <p className="text-sm text-muted-foreground order-2 md:order-1">
+                © {new Date().getFullYear()} Scriptember. All rights reserved.
+             </p>
+             <div className="flex items-center gap-4 order-1 md:order-2">
+                <Link href="#" aria-label="Twitter">
+                <Twitter className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+                <Link href="#" aria-label="GitHub">
+                <Github className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+                <Link href="#" aria-label="Discord">
+                <DiscordIcon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+             </div>
           </div>
         </div>
       </div>
