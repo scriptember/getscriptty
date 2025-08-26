@@ -7,7 +7,7 @@ import HeroSlideshow from "@/components/hero-slideshow";
 
 export default function Home() {
   const sponsors = [
-    { name: "Sponsor 1", logo: "/sponsors/logo1.svg" },
+    { name: "Low-Cool Vibes", logo: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.png" },
     { name: "Sponsor 2", logo: "/sponsors/logo2.svg" },
     { name: "Sponsor 3", logo: "/sponsors/logo3.svg" },
     { name: "Sponsor 4", logo: "/sponsors/logo4.svg" },
@@ -104,7 +104,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 lg:gap-16">
             {sponsors.map((sponsor, index) => (
               <div key={index} className="relative h-10 w-32 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all">
-                 <Image src={`https://picsum.photos/seed/${index+10}/128/40`} layout="fill" objectFit="contain" alt={sponsor.name} data-ai-hint="logo" />
+                 <Image src={index === 0 ? sponsor.logo : `https://picsum.photos/seed/${index+10}/128/40`} layout="fill" objectFit="contain" alt={sponsor.name} data-ai-hint="logo" />
               </div>
             ))}
           </div>
