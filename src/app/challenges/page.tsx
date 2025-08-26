@@ -5,50 +5,50 @@ import { cn } from "@/lib/utils";
 
 const baseChallenges = [
   {
-    title: "Personal Portfolio Website",
-    description: "Build a stunning, responsive portfolio website to showcase your skills and projects. A great starting point for any developer.",
-    criteria: ["Design", "Responsiveness", "Content"],
+    title: "Personal Portfolio with Next.js",
+    description: "Build a stunning, responsive portfolio website with Next.js and Tailwind CSS to showcase your skills and projects. A great starting point for any developer.",
+    criteria: ["Next.js", "React", "Design"],
     points: 250,
     difficulty: "Beginner",
   },
   {
-    title: "Interactive Data Visualization",
-    description: "Find a public dataset and build a web app to visualize it in an interesting way. Use a library like D3.js or Recharts.",
-    criteria: ["Data Handling", "User Experience", "Clarity"],
+    title: "Interactive Data Visualization with D3.js",
+    description: "Find a public dataset on GitHub and build a web app to visualize it in an interesting way using D3.js and React. ",
+    criteria: ["D3.js", "Data Handling", "React"],
     points: 400,
     difficulty: "Beginner",
   },
   {
-    title: "Real-Time Chat Application",
-    description: "Create a chat application using WebSockets or a service like Firebase. Allow users to join rooms and communicate in real-time.",
-    criteria: ["Real-Time Sync", "UI/UX", "Scalability"],
+    title: "Real-Time Chat App with Socket.IO",
+    description: "Create a chat application using Node.js, Express, and Socket.IO. Allow users to join rooms and communicate in real-time.",
+    criteria: ["WebSockets", "Node.js", "UI/UX"],
     points: 600,
     difficulty: "Intermediate",
   },
   {
-    title: "AI-Powered Content Generator",
-    description: "Build a tool that uses a generative AI model (like one from Genkit) to create content, such as blog posts, social media updates, or even code snippets.",
-    criteria: ["AI Integration", "Utility", "Originality"],
+    title: "AI-Powered README Generator with Genkit",
+    description: "Build a tool that uses a generative AI model (like one from Genkit) to automatically create a high-quality README.md file for a GitHub repository.",
+    criteria: ["AI Integration", "GitHub API", "Utility"],
     points: 750,
     difficulty: "Intermediate",
   },
   {
-    title: "Contribute to a Major Open-Source Project",
-    description: "Find a well-known open-source project and make a meaningful contribution, like fixing a complex bug or implementing a requested feature.",
+    title: "Contribute to a Major JS Open-Source Project",
+    description: "Find a well-known JavaScript open-source project (e.g., on GitHub) and make a meaningful contribution, like fixing a complex bug or implementing a requested feature.",
     criteria: ["Impact", "Code Quality", "Collaboration"],
     points: 900,
     difficulty: "Advanced",
   },
   {
-    title: "Web3 Decentralized Voting System",
-    description: "Create a secure and transparent voting application on a blockchain. Focus on preventing fraud and ensuring user privacy.",
-    criteria: ["Decentralization", "Security", "Social Impact"],
+    title: "Browser Extension with React",
+    description: "Create a useful browser extension for Chrome or Firefox using React. Focus on a specific task that can be automated or simplified.",
+    criteria: ["React", "Browser APIs", "Utility"],
     points: 1000,
     difficulty: "Advanced",
   },
 ];
 
-const challenges = Array.from({ length: 5 }).flatMap(() => baseChallenges);
+const challenges = Array.from({ length: 5 }).flatMap(() => baseChallenges).sort((a, b) => a.points - b.points);
 
 export default function ChallengesPage() {
   return (

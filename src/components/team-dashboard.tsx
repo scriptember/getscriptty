@@ -1,9 +1,15 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { getRepoActivity } from "@/app/dashboard/actions";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FileText, Github, Users, MessageSquare, Settings, Rocket } from "lucide-react";
+import { FileText, Github, Users, MessageSquare, Settings, Rocket, GitCommit, ExternalLink } from "lucide-react";
+import { Skeleton } from "./ui/skeleton";
+import { formatDistanceToNow } from 'date-fns';
 
 const teamData = {
     name: "The Code Crusaders",
@@ -15,18 +21,54 @@ const teamData = {
         { name: "Charlie", avatar: "https://picsum.photos/seed/charlie/40/40" },
         { name: "You", avatar: "https://picsum.photos/seed/you/40/40" },
     ],
-    repoUrl: "#",
+    repoUrl: "https://github.com/firebase/genkit",
     chatUrl: "#",
     docsUrl: "#",
 };
 
-const recentActivity = [
-    { id: 1, text: "Charlie pushed a new commit to the 'feat/auth' branch.", time: "2 hours ago" },
-    { id: 2, text: "Alice updated the project documentation.", time: "5 hours ago" },
-    { id: 3, text: "A new issue was created: 'Fix login button alignment'.", time: "1 day ago" },
-];
+interface Commit {
+    sha: string;
+    html_url: string;
+    commit: {
+        author: {
+            name: string;
+            date: string;
+        };
+        message: string;
+    };
+    author: {
+        avatar_url: string;
+        login: string;
+    };
+}
 
 export default function TeamDashboard() {
+    const [activity, setActivity] = useState<Commit[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchActivity() {
+            try {
+                setIsLoading(true);
+                const repoPath = new URL(teamData.repoUrl).pathname.substring(1);
+                const result = await getRepoActivity(repoPath);
+
+                if (result.success) {
+                    setActivity(result.activity || []);
+                } else {
+                    setError(result.error || "Failed to fetch repository activity.");
+                }
+            } catch (err) {
+                setError("An unexpected error occurred.");
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchActivity();
+    }, []);
+
     return (
         <Card className="bg-card/50 border-border/50">
             <CardHeader>
@@ -58,17 +100,36 @@ export default function TeamDashboard() {
                     </Card>
                     <Card>
                         <CardHeader>
-                            <CardTitle>Recent Activity</CardTitle>
+                            <CardTitle>Recent Commits</CardTitle>
                         </CardHeader>
                         <CardContent>
-                           <ul className="space-y-4">
-                                {recentActivity.map(activity => (
-                                    <li key={activity.id} className="text-sm text-muted-foreground flex items-start gap-3">
-                                        <div className="w-1 h-1 bg-primary rounded-full mt-2"></div>
-                                        <span>{activity.text} <span className="text-xs">({activity.time})</span></span>
-                                    </li>
-                                ))}
-                           </ul>
+                            {isLoading ? (
+                                <div className="space-y-4">
+                                    {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
+                                </div>
+                            ) : error ? (
+                                <p className="text-destructive">{error}</p>
+                            ) : (
+                               <ul className="space-y-4">
+                                    {activity.slice(0, 5).map(commit => (
+                                        <li key={commit.sha} className="flex items-start gap-3">
+                                            <Avatar className="h-8 w-8 mt-1 border-2 border-primary/50">
+                                                <AvatarImage src={commit.author?.avatar_url} alt={commit.commit.author.name} data-ai-hint="avatar"/>
+                                                <AvatarFallback>{commit.commit.author.name.charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex-1">
+                                                <p className="text-sm text-foreground truncate">{commit.commit.message}</p>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-medium">{commit.author?.login || commit.commit.author.name}</span> committed {formatDistanceToNow(new Date(commit.commit.author.date), { addSuffix: true })}
+                                                     <a href={commit.html_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary hover:underline ml-2">
+                                                        ({commit.sha.substring(0, 7)}) <ExternalLink className="h-3 w-3 ml-1"/>
+                                                     </a>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    ))}
+                               </ul>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
