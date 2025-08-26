@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,9 +25,9 @@ const mentors = [
     avatar: "https://picsum.photos/seed/mentor3/200/200",
   },
   {
-    name: "Olivia Rodriguez",
-    bio: "DevRel Engineer focused on Web3 and decentralized technologies. Excited to guide teams exploring the future of the web.",
-    expertise: ["Web3", "Solidity", "Ethers.js", "dApps"],
+    name: "David Chen",
+    bio: "AI Specialist and Staff Engineer at Google. Focused on making generative AI accessible to all developers. Core contributor to Genkit.",
+    expertise: ["GenAI", "Genkit", "LLMs", "AI Ethics"],
     avatar: "https://picsum.photos/seed/mentor4/200/200",
   },
 ];
