@@ -14,14 +14,14 @@ const sponsors = {
     { name: "Silver Sponsor 3", logoUrl: "https://picsum.photos/seed/s3/200/100", site: "#" },
   ],
   bronze: [
-    { name: "Low-Cool Vibes", logoUrl: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.jpeg", site: "#" },
+    { name: "Low-Cool Vibes", logoUrl: "https://picsum.photos/seed/b1/150/80", site: "https://x.com/lowcoolvibes" },
     { name: "Bronze Sponsor 2", logoUrl: "https://picsum.photos/seed/b2/150/80", site: "#" },
     { name: "Bronze Sponsor 3", logoUrl: "https://picsum.photos/seed/b3/150/80", site: "#" },
     { name: "Bronze Sponsor 4", logoUrl: "https://picsum.photos/seed/b4/150/80", site: "#" },
   ],
 };
 
-const SponsorTier = ({ tier, logos, sizeClass }: { tier: string; logos: {name: string, logoUrl: string, site: string}[], sizeClass: string }) => (
+const SponsorTier = ({ tier, logos, sizeClass }: { tier: string; logos: {name: string, logoUrl: any, site: string}[], sizeClass: string }) => (
   <div className="mb-16">
     <h2 className={cn("font-headline text-3xl font-bold mb-8 text-center", 
         tier === "Gold" && "text-yellow-400",
