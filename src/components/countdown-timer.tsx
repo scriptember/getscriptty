@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,9 +15,14 @@ export default function CountdownTimer() {
   const [isMounted, setIsMounted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [targetDate, setTargetDate] = useState(new Date());
 
   useEffect(() => {
     setIsMounted(true);
+    
+    const currentYear = new Date().getFullYear();
+    const startDate = new Date(`${currentYear}-09-01T00:00:00+01:00`);
+    setTargetDate(startDate);
 
     const handleResize = () => {
         if (typeof window !== 'undefined') {
@@ -29,13 +35,13 @@ export default function CountdownTimer() {
 
     window.addEventListener('resize', handleResize);
     handleResize();
-
-    const targetDate = new Date("2024-09-01T00:00:00+01:00");
-    const confettiEndDate = new Date("2024-09-02T00:00:00+01:00");
+    
+    const confettiEndDate = new Date(startDate.getTime());
+    confettiEndDate.setDate(startDate.getDate() + 1);
 
     const interval = setInterval(() => {
       const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
+      const difference = startDate.getTime() - now.getTime();
 
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
