@@ -8,11 +8,11 @@ import HeroSlideshow from "@/components/hero-slideshow";
 export default function Home() {
   const sponsors = [
     { name: "Low-Cool Vibes", logo: "https://picsum.photos/seed/lowcool/128/40" },
-    { name: "Sponsor 2", logo: "/sponsors/logo2.svg" },
-    { name: "Sponsor 3", logo: "/sponsors/logo3.svg" },
-    { name: "Sponsor 4", logo: "/sponsors/logo4.svg" },
-    { name: "Sponsor 5", logo: "/sponsors/logo5.svg" },
-    { name: "Sponsor 6", logo: "/sponsors/logo6.svg" },
+    { name: "Sponsor 2", logo: "https://picsum.photos/seed/sponsor2/128/40" },
+    { name: "Sponsor 3", logo: "https://picsum.photos/seed/sponsor3/128/40" },
+    { name: "Sponsor 4", logo: "https://picsum.photos/seed/sponsor4/128/40" },
+    { name: "Sponsor 5", logo: "https://picsum.photos/seed/sponsor5/128/40" },
+    { name: "Sponsor 6", logo: "https://picsum.photos/seed/sponsor6/128/40" },
   ];
 
   return (
@@ -104,7 +104,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 lg:gap-16">
             {sponsors.map((sponsor, index) => (
               <div key={index} className="relative h-10 w-32 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all">
-                 <Image src={index === 0 ? sponsor.logo : `https://picsum.photos/seed/${index+10}/128/40`} layout="fill" objectFit="contain" alt={sponsor.name} data-ai-hint="logo" />
+                 <Image src={sponsor.logo} layout="fill" objectFit="contain" alt={sponsor.name} data-ai-hint="logo" />
               </div>
             ))}
           </div>
