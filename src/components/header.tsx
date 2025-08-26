@@ -52,7 +52,9 @@ export default function Header() {
             </Button>
           </div>
           <nav className="flex items-center">
-            <Button>Register</Button>
+            <Button asChild>
+              <Link href="/register">Register</Link>
+            </Button>
           </nav>
         </div>
       </div>
