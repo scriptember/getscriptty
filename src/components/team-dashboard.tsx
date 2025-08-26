@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FileText, Github, Users, MessageSquare, Settings, Rocket, GitCommit, ExternalLink } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { formatDistanceToNow } from 'date-fns';
+import { cn } from "@/lib/utils";
 
 const teamData = {
     name: "The Code Crusaders",
@@ -105,7 +106,7 @@ export default function TeamDashboard() {
                         <CardContent>
                             {isLoading ? (
                                 <div className="space-y-4">
-                                    {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
+                                    {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
                                 </div>
                             ) : error ? (
                                 <p className="text-destructive">{error}</p>
@@ -118,13 +119,14 @@ export default function TeamDashboard() {
                                                 <AvatarFallback>{commit.commit.author.name.charAt(0)}</AvatarFallback>
                                             </Avatar>
                                             <div className="flex-1">
-                                                <p className="text-sm text-foreground truncate">{commit.commit.message}</p>
-                                                <p className="text-xs text-muted-foreground">
-                                                    <span className="font-medium">{commit.author?.login || commit.commit.author.name}</span> committed {formatDistanceToNow(new Date(commit.commit.author.date), { addSuffix: true })}
-                                                     <a href={commit.html_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary hover:underline ml-2">
+                                                <p className="text-sm text-foreground break-words">{commit.commit.message.split('\n')[0]}</p>
+                                                <div className="text-xs text-muted-foreground mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                                                    <span className="font-medium">{commit.author?.login || commit.commit.author.name}</span>
+                                                    <span>committed {formatDistanceToNow(new Date(commit.commit.author.date), { addSuffix: true })}</span>
+                                                     <a href={commit.html_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary hover:underline">
                                                         ({commit.sha.substring(0, 7)}) <ExternalLink className="h-3 w-3 ml-1"/>
                                                      </a>
-                                                </p>
+                                                </div>
                                             </div>
                                         </li>
                                     ))}
