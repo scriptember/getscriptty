@@ -6,10 +6,10 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const images = [
-  { src: "https://picsum.photos/seed/slide1/1920/1080", hint: "code editor" },
-  { src: "https://picsum.photos/seed/slide2/1920/1080", hint: "team collaboration" },
-  { src: "https://picsum.photos/seed/slide3/1920/1080", hint: "server room" },
-  { src: "https://picsum.photos/seed/slide4/1920/1080", hint: "developer community" },
+  { src: "https://picsum.photos/seed/slide1/1920/1080", hint: "javascript code" },
+  { src: "https://picsum.photos/seed/slide2/1920/1080", hint: "react code" },
+  { src: "https://picsum.photos/seed/slide3/1920/1080", hint: "node js" },
+  { src: "https://picsum.photos/seed/slide4/1920/1080", hint: "developer conference" },
 ];
 
 export default function HeroSlideshow() {
