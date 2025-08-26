@@ -14,7 +14,7 @@ const sponsors = {
     { name: "Silver Sponsor 3", logoUrl: "https://picsum.photos/seed/s3/200/100", site: "#" },
   ],
   bronze: [
-    { name: "Low-Cool Vibes", logoUrl: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.png", site: "#" },
+    { name: "Low-Cool Vibes", logoUrl: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.jpeg", site: "#" },
     { name: "Bronze Sponsor 2", logoUrl: "https://picsum.photos/seed/b2/150/80", site: "#" },
     { name: "Bronze Sponsor 3", logoUrl: "https://picsum.photos/seed/b3/150/80", site: "#" },
     { name: "Bronze Sponsor 4", logoUrl: "https://picsum.photos/seed/b4/150/80", site: "#" },

@@ -7,7 +7,7 @@ import HeroSlideshow from "@/components/hero-slideshow";
 
 export default function Home() {
   const sponsors = [
-    { name: "Low-Cool Vibes", logo: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.png" },
+    { name: "Low-Cool Vibes", logo: "https://fireworks.so/api/proxy?url=https://storage.googleapis.com/stabl-agent-test-assets/lowcoolvibes.jpeg" },
     { name: "Sponsor 2", logo: "/sponsors/logo2.svg" },
     { name: "Sponsor 3", logo: "/sponsors/logo3.svg" },
     { name: "Sponsor 4", logo: "/sponsors/logo4.svg" },
