@@ -19,6 +19,7 @@ export default function HeroSlideshow() {
 
   useEffect(() => {
     setIsMounted(true);
+    
     const targetDate = new Date("2024-09-01T00:00:00+01:00");
 
     const checkCountdown = () => {
@@ -43,7 +44,7 @@ export default function HeroSlideshow() {
   }, []);
 
   if (!isMounted) {
-    return null;
+    return <div className="absolute inset-0 w-full h-full bg-background/50"></div>;
   }
 
   return (

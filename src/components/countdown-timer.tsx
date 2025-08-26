@@ -19,10 +19,12 @@ export default function CountdownTimer() {
     setIsMounted(true);
 
     const handleResize = () => {
-        setWindowSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        });
+        if (typeof window !== 'undefined') {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
     };
 
     window.addEventListener('resize', handleResize);
@@ -67,7 +69,7 @@ export default function CountdownTimer() {
         <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
           {[...Array(4)].map((_, i) => (
              <Card key={i} className="p-4 md:p-6 bg-card/50">
-               <div className="text-4xl md:text-6xl font-bold font-mono text-foreground animate-pulse">--</div>
+               <div className="text-4xl md:text-6xl font-bold font-mono text-foreground">--</div>
                <div className="text-sm text-muted-foreground mt-2">&nbsp;</div>
              </Card>
           ))}
