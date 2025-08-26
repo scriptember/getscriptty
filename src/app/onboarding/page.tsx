@@ -59,7 +59,7 @@ export default function OnboardingPage() {
         </Card>
       </div>
        <div className="text-center mt-12">
-            <Link href="/" className="text-sm text-muted-foreground hover:text-primary underline">
+            <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-primary underline">
                 Skip for now, I'll decide later
             </Link>
         </div>

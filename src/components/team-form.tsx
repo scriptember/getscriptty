@@ -51,7 +51,7 @@ export default function TeamForm() {
       description: `Your team "${values.teamName}" is ready.`,
     });
     
-    router.push("/"); // Redirect to a dashboard or home page after creation
+    router.push("/dashboard"); // Redirect to a dashboard or home page after creation
     setIsLoading(false);
   }
   

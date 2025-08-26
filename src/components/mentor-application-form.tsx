@@ -53,7 +53,7 @@ export default function MentorApplicationForm() {
       description: "Thanks for applying to be a mentor. We'll review your application and get back to you soon.",
     });
     
-    router.push("/");
+    router.push("/dashboard");
     setIsLoading(false);
   }
   

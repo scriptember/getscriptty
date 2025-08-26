@@ -16,6 +16,7 @@ const navLinks = [
   { href: "/sponsors", label: "Sponsors" },
   { href: "/faq", label: "FAQ" },
   { href: "/projects", label: "Projects" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export default function Header() {
