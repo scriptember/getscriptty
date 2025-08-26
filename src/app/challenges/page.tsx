@@ -32,7 +32,7 @@ const baseChallenges = [
     points: 750,
     difficulty: "Intermediate",
   },
-   {
+  {
     title: "Contribute to a Major Open-Source Project",
     description: "Find a well-known open-source project and make a meaningful contribution, like fixing a complex bug or implementing a requested feature.",
     criteria: ["Impact", "Code Quality", "Collaboration"],
