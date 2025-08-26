@@ -60,9 +60,9 @@ export default function RegisterForm() {
      if (result.success) {
       toast({
         title: "Authentication Successful",
-        description: "Welcome!",
+        description: "Welcome! Let's get you set up.",
       });
-      router.push("/");
+      router.push("/onboarding");
     } else {
       toast({
         variant: "destructive",
