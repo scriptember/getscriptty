@@ -3,6 +3,7 @@ import CountdownTimer from "@/components/countdown-timer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Code, Rocket, Users } from "lucide-react";
 import Image from "next/image";
+import HeroSlideshow from "@/components/hero-slideshow";
 
 export default function Home() {
   const sponsors = [
@@ -16,7 +17,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      <section className="w-full py-20 md:py-32 lg:py-40 text-center bg-grid-slate-800/[0.2] relative">
+      <section className="w-full py-20 md:py-32 lg:py-40 text-center bg-grid-slate-800/[0.2] relative overflow-hidden">
+        <HeroSlideshow />
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container mx-auto px-4 md:px-6 relative">
           <div className="max-w-4xl mx-auto">
