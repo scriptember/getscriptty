@@ -4,6 +4,20 @@ import { Calendar, Clock, Mic } from "lucide-react";
 
 const schedule = [
   {
+    date: "Aug 29, 2024",
+    time: "4:00 PM",
+    title: "Pre-Hackathon Mixer & Team Formation",
+    speaker: "Community Managers",
+    track: "Community",
+  },
+  {
+    date: "Aug 30, 2024",
+    time: "1:00 PM",
+    title: "Intro to GenAI with Google's Genkit",
+    speaker: "AI Specialist",
+    track: "Pre-Hackathon",
+  },
+  {
     date: "Sep 1, 2024",
     time: "10:00 AM",
     title: "Opening Ceremony & Keynote",
@@ -30,13 +44,6 @@ const schedule = [
     title: "Firebase for JavaScript Developers",
     speaker: "Michael Brown",
     track: "Workshop",
-  },
-  {
-    date: "Sep 4, 2024",
-    time: "4:00 PM",
-    title: "UI/UX for Hackathon Projects",
-    speaker: "Sarah Green",
-    track: "Design",
   },
   {
     date: "Sep 5, 2024",
