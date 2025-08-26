@@ -79,11 +79,7 @@ export default function CountdownTimer() {
   return (
     <div className="text-center">
         {showConfetti && <Confetti width={windowSize.width} height={windowSize.height} />}
-        {timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 && !showConfetti ? (
-             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl mb-4 text-primary">
-                Scriptember has started!
-             </h2>
-        ) : (
+        {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
             <>
                 <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl mb-4 text-primary">
                     Event Starts In
@@ -118,6 +114,10 @@ export default function CountdownTimer() {
                 Timezone: Africa/Lagos (UTC+1)
                 </p>
             </>
+        ) : (
+             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl mb-4 text-primary">
+                Scriptember has started!
+             </h2>
         )}
     </div>
   );
