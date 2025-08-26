@@ -15,6 +15,10 @@ const faqs = [
     answer: "Yes. All code must be written during the hackathon period. You must submit your project to the official portal before the deadline. Projects must be open-source and use a permissive license (e.g., MIT, Apache 2.0). Teams can have up to 4 members.",
   },
   {
+    question: "How do I submit my project?",
+    answer: "Project submissions are handled through your Team Dashboard. Once you are ready to submit, click the 'Submit Project' button. You will be prompted to provide your project's GitHub repository URL, a short video demo, and a README file that explains your project. Make sure your submission is complete before the final deadline!",
+  },
+  {
     question: "How does judging work?",
     answer: "A panel of expert judges will score projects based on several criteria: Code Quality (30%), Impact (30%), Originality (20%), and Presentation (20%). All scores are normalized to a 100-point scale. The judging process is blind to ensure fairness.",
   },
