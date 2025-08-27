@@ -1,7 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  basePath: 'scriptember25',
+  basePath: '/scriptember25',
   output: 'export',
   /* config options here */
   images: {
