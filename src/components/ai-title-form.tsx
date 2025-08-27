@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { generateTitleAction } from "@/app/projects/actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -42,17 +41,12 @@ export default function AiTitleForm() {
     setGeneratedTitle("");
     const tagsArray = values.tags.split(",").map((tag) => tag.trim()).filter(Boolean);
 
-    const result = await generateTitleAction({ tags: tagsArray });
-
-    if (result.success) {
-      setGeneratedTitle(result.title);
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: result.error,
-      });
-    }
+    // Static export doesn't support server actions.
+    // We'll generate a mock title instead.
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const mockTitle = `Awesome ${tagsArray.join(" & ")} Project`;
+    setGeneratedTitle(mockTitle);
+    
     setIsLoading(false);
   }
   

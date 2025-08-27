@@ -174,7 +174,7 @@ export default function TeamDashboard() {
                            <Button variant="outline" asChild><a href={teamData.repoUrl} target="_blank" rel="noopener noreferrer"><Github className="mr-2 h-4 w-4"/> View on GitHub</a></Button>
                            <Button variant="outline" asChild><a href={teamData.chatUrl} target="_blank" rel="noopener noreferrer"><MessageSquare className="mr-2 h-4 w-4"/> Team Chat</a></Button>
                            <Button variant="outline" asChild><a href={teamData.docsUrl} target="_blank" rel="noopener noreferrer"><FileText className="mr-2 h-4 w-4"/> Project Docs</a></Button>
-                        </CardContent>
+                        </Content>
                     </Card>
                 </div>
             </CardContent>
