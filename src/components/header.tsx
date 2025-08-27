@@ -70,7 +70,12 @@ export default function Header() {
              {!isLoading && (
               <>
                 {isLoggedIn ? (
-                  <Button variant="secondary" onClick={() => {}}>Logout</Button>
+                  <div className="flex items-center gap-2">
+                    <Button asChild>
+                      <Link href="/dashboard">Dashboard</Link>
+                    </Button>
+                    <Button variant="secondary" onClick={() => {}}>Logout</Button>
+                  </div>
                 ) : (
                   <Button asChild>
                     <Link href="/register">Register</Link>
