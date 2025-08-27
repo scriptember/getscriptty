@@ -31,7 +31,7 @@ export default function Home() {
               grow your GitHub story.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button size="lg">Register for Scriptember</Button>
+              <Button size="lg" asChild><Link href="/register">Register for Scriptember</Link></Button>
               <Button size="lg" variant="secondary">
                 Join Discord
               </Button>
@@ -105,7 +105,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 lg:gap-16">
             {sponsors.map((sponsor, index) => (
               <div key={index} className="relative h-10 w-32 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all">
-                 <Image src={sponsor.logo} layout="fill" objectFit="contain" alt={sponsor.name} data-ai-hint="logo" />
+                 <Image src={sponsor.logo} alt={sponsor.name} width={128} height={40} data-ai-hint="logo" />
               </div>
             ))}
           </div>

@@ -4,8 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, Users } from "lucide-react";
 
 export default function DashboardPage() {
-  // In a real app, you'd fetch user data to determine which tabs to show.
-  // For now, we'll assume the user can be both a participant and a mentor.
   const isParticipant = true;
   const isMentor = true;
 

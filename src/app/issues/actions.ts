@@ -22,31 +22,31 @@ export interface GithubIssue {
 
 
 export async function getGithubIssues() {
-    const repo = 'firebase/genkit'; 
-    const url = `https://api.github.com/repos/${repo}/issues?state=open&sort=updated`;
-
-    try {
-        const response = await fetch(url, {
-            headers: {
-                "Accept": "application/vnd.github.v3+json",
-                "User-Agent": "Scriptember-Hackathon-App"
-            },
-            next: {
-                revalidate: 300 // Revalidate every 5 minutes
-            }
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("GitHub API Error:", errorData.message);
-            return { success: false, error: `Failed to fetch issues from GitHub: ${errorData.message || response.statusText}` };
+    // This is a placeholder for the static export.
+    // In a server environment, this would fetch from the GitHub API.
+    const issues: GithubIssue[] = [
+        {
+          id: 1,
+          number: 123,
+          title: "Fix documentation link in README",
+          html_url: "#",
+          state: "open",
+          comments: 2,
+          created_at: new Date().toISOString(),
+          user: { login: "github-user", html_url: "#" },
+          labels: [{ id: 1, name: "documentation", color: "fbca04" }]
+        },
+        {
+          id: 2,
+          number: 124,
+          title: "Improve component performance",
+          html_url: "#",
+          state: "open",
+          comments: 5,
+          created_at: new Date().toISOString(),
+          user: { login: "another-user", html_url: "#" },
+          labels: [{ id: 2, name: "performance", color: "d93f0b" }, { id: 3, name: "good first issue", color: "0e8a16" }]
         }
-
-        const issues: GithubIssue[] = await response.json();
-        return { success: true, issues };
-    } catch (error) {
-        console.error("Error fetching repository issues:", error);
-        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
-        return { success: false, error: `An error occurred while fetching data: ${errorMessage}` };
-    }
+    ];
+    return { success: true, issues };
 }

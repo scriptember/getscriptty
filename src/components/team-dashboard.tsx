@@ -3,14 +3,12 @@
 import { useEffect, useState } from "react";
 import { getRepoActivity } from "@/app/dashboard/actions";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FileText, Github, Users, MessageSquare, Settings, Rocket, GitCommit, ExternalLink } from "lucide-react";
+import { FileText, Github, Users, MessageSquare, Settings, Rocket, ExternalLink } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { formatDistanceToNow } from 'date-fns';
-import { cn } from "@/lib/utils";
 
 const teamData = {
     name: "The Code Crusaders",
@@ -52,14 +50,29 @@ export default function TeamDashboard() {
         async function fetchActivity() {
             try {
                 setIsLoading(true);
-                const repoPath = new URL(teamData.repoUrl).pathname.substring(1);
-                const result = await getRepoActivity(repoPath);
-
-                if (result.success) {
-                    setActivity(result.activity || []);
-                } else {
-                    setError(result.error || "Failed to fetch repository activity.");
-                }
+                // In static export, we cannot fetch real data.
+                // We'll use mock data.
+                 const mockActivity: Commit[] = [
+                    {
+                        sha: 'abc1234',
+                        html_url: '#',
+                        commit: {
+                            author: { name: 'dev-one', date: new Date().toISOString() },
+                            message: 'feat: Implement initial project structure'
+                        },
+                        author: { avatar_url: 'https://picsum.photos/seed/dev1/40/40', login: 'dev-one' }
+                    },
+                    {
+                        sha: 'def5678',
+                        html_url: '#',
+                        commit: {
+                            author: { name: 'dev-two', date: new Date(Date.now() - 3600000).toISOString() },
+                            message: 'fix: Corrected typo in documentation'
+                        },
+                        author: { avatar_url: 'https://picsum.photos/seed/dev2/40/40', login: 'dev-two' }
+                    }
+                ];
+                setActivity(mockActivity);
             } catch (err) {
                 setError("An unexpected error occurred.");
             } finally {

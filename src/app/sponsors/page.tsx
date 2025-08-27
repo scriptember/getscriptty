@@ -38,8 +38,8 @@ const SponsorTier = ({ tier, logos, sizeClass }: { tier: string; logos: {name: s
                 <Image
                     src={sponsor.logoUrl}
                     alt={`${sponsor.name} logo`}
-                    layout="fill"
-                    objectFit="contain"
+                    width={parseInt(sizeClass.split(' ')[0].split('-')[1]) * 4}
+                    height={parseInt(sizeClass.split(' ')[1].split('-')[1]) * 4}
                     data-ai-hint="logo"
                 />
             </CardContent>

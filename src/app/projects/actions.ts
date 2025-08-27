@@ -1,17 +1,13 @@
 "use server";
 
-import {
-  generateProjectTitle,
-  GenerateProjectTitleInput,
-} from "@/ai/flows/project-title-generator";
+import type { GenerateProjectTitleInput } from "@/ai/flows/project-title-generator";
 
 export async function generateTitleAction(input: GenerateProjectTitleInput) {
   try {
-    const result = await generateProjectTitle(input);
-    if (!result || !result.title) {
-      throw new Error("AI failed to generate a title.");
-    }
-    return { success: true, title: result.title };
+    // This is a placeholder for static export.
+    // In a server environment, this would call the AI flow.
+    const mockTitle = `Awesome ${input.tags.join(" ")} Project`;
+    return { success: true, title: mockTitle };
   } catch (error) {
     console.error("Error generating project title:", error);
     const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";

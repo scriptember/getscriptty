@@ -5,8 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { getAuth, onAuthStateChanged, signOut, type User } from "firebase/auth";
-import { app } from "@/lib/firebase";
 import Logo from "./logo";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
@@ -20,28 +18,21 @@ const navLinks = [
   { href: "/sponsors", label: "Sponsors" },
   { href: "/faq", label: "FAQ" },
   { href: "/projects", label: "Projects" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const auth = getAuth(app);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setIsLoading(false);
-    });
-    return () => unsubscribe();
-  }, [auth]);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-  };
-
-  const mainNavLinks = user ? [...navLinks, { href: "/dashboard", label: "Dashboard" }] : navLinks;
+    // In a static build, we can't check auth state.
+    // We'll default to a logged-out state.
+    setIsLoggedIn(false);
+    setIsLoading(false);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -51,7 +42,7 @@ export default function Header() {
             <Logo />
           </Link>
           <nav className="flex items-center gap-6 text-sm">
-            {mainNavLinks.map(({ href, label }) => (
+            {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -78,8 +69,8 @@ export default function Header() {
           <nav className="flex items-center">
              {!isLoading && (
               <>
-                {user ? (
-                  <Button variant="secondary" onClick={handleLogout}>Logout</Button>
+                {isLoggedIn ? (
+                  <Button variant="secondary" onClick={() => {}}>Logout</Button>
                 ) : (
                   <Button asChild>
                     <Link href="/register">Register</Link>
@@ -94,7 +85,7 @@ export default function Header() {
         <div className="md:hidden">
           <div className="container py-4">
             <nav className="grid gap-4">
-              {mainNavLinks.map(({ href, label }) => (
+              {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
