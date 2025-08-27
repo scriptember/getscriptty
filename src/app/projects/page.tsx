@@ -1,5 +1,6 @@
 import AiTitleForm from "@/components/ai-title-form";
 import { Bot } from "lucide-react";
+import { generateProjectTitle } from "@/ai/flows/project-title-generator";
 
 export default function ProjectsPage() {
   return (
@@ -17,7 +18,7 @@ export default function ProjectsPage() {
       </div>
       
       <div className="max-w-2xl mx-auto">
-        <AiTitleForm />
+        <AiTitleForm generateTitleAction={generateProjectTitle}/>
       </div>
 
     </div>

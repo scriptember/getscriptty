@@ -23,7 +23,11 @@ const formSchema = z.object({
   tags: z.string().min(1, "Please enter at least one tag."),
 });
 
-export default function AiTitleForm() {
+interface AiTitleFormProps {
+    generateTitleAction: (input: { tags: string[] }) => Promise<{ title: string }>;
+}
+
+export default function AiTitleForm({ generateTitleAction }: AiTitleFormProps) {
   const [generatedTitle, setGeneratedTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
@@ -41,18 +45,26 @@ export default function AiTitleForm() {
     setGeneratedTitle("");
     const tagsArray = values.tags.split(",").map((tag) => tag.trim()).filter(Boolean);
 
-    // Static export doesn't support server actions.
-    // We'll generate a mock title instead.
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const mockTitle = `Awesome ${tagsArray.join(" & ")} Project`;
-    setGeneratedTitle(mockTitle);
-    
-    setIsLoading(false);
+    try {
+        const result = await generateTitleAction({ tags: tagsArray });
+        setGeneratedTitle(result.title);
+    } catch (error) {
+        console.error("Error generating title:", error);
+        toast({
+            variant: "destructive",
+            title: "Error Generating Title",
+            description: "Could not generate a title. Please try again."
+        });
+    } finally {
+        setIsLoading(false);
+    }
   }
   
   const handleCopy = () => {
+    if (!generatedTitle) return;
     navigator.clipboard.writeText(generatedTitle);
     setHasCopied(true);
+    toast({ title: "Copied to clipboard!" });
     setTimeout(() => setHasCopied(false), 2000);
   };
 

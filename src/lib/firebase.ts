@@ -2,6 +2,8 @@
 // To regenerate this file, run the "Get Firebase Config" command.
 
 import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
 
 // Note: This is a public configuration.
 const firebaseConfig = {
@@ -21,4 +23,6 @@ if (!getApps().length) {
   app = getApp();
 }
 
-export { app };
+const auth = getAuth(app);
+
+export { app, auth };

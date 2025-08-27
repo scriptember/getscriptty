@@ -1,11 +1,8 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  basePath: '/scriptember25',
-  output: 'export',
   /* config options here */
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
   typescript: {

@@ -49,7 +49,7 @@ export default function TeamDashboard() {
         async function fetchActivity() {
             try {
                 setIsLoading(true);
-                // In static export, we cannot fetch real data.
+                // In this environment, we cannot fetch real data.
                 // We'll use mock data.
                  const mockActivity: Commit[] = [
                     {
