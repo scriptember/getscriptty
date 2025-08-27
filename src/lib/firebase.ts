@@ -5,12 +5,12 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 
 // Note: This is a public configuration.
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id"
+  apiKey: "AIzaSyAA-wTSZ6Z7DlxL-SS0XWC9jDhSyczfpoU",
+  authDomain: "scriptember-hub.firebaseapp.com",
+  projectId: "scriptember-hub",
+  storageBucket: "scriptember-hub.firebasestorage.app",
+  messagingSenderId: "509247850435",
+  appId: "1:509247850435:web:78ca9598c4084c8848df76"
 };
 
 // Initialize Firebase
