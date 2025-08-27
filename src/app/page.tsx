@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Code, Rocket, Users } from "lucide-react";
 import Image from "next/image";
 import HeroSlideshow from "@/components/hero-slideshow";
+import Link from "next/link";
 
 export default function Home() {
   const sponsors = [
@@ -34,8 +35,8 @@ export default function Home() {
               <Button size="lg" variant="secondary">
                 Join Discord
               </Button>
-              <Button size="lg" variant="outline">
-                Browse Issues
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/issues">Browse Issues</Link>
               </Button>
             </div>
           </div>
