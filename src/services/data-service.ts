@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues } = data;
+const { mentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams } = data;
 
 interface Challenge {
     id: string;
@@ -45,12 +45,7 @@ export async function getTeamByUserId(userId: string = "default_user"): Promise<
 }
 
 export async function getTeams(): Promise<Team[]> {
-    const teamsCollection = collection(db, 'teams');
-    const q = query(teamsCollection, orderBy('createdAt', 'desc'));
-    // This is a placeholder for when we fetch live data on the client side.
-    // For build time, we would use a static data source.
-    // For now, returning an empty array to avoid build errors.
-    return Promise.resolve([]);
+    return Promise.resolve(mockTeams);
 }
 
 
