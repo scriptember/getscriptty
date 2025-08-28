@@ -141,9 +141,6 @@ export default function IssuesPage() {
                 <p className="mt-4 text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto">
                     Looking for a challenge? Pick an issue from a real-world open-source project and start contributing.
                 </p>
-                 <p className="mt-2 text-sm text-muted-foreground">
-                    Currently showing mock issues. Connect to the GitHub API to see live data.
-                </p>
             </div>
 
             <div className="max-w-4xl mx-auto">

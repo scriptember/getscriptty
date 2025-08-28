@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors, challenges, schedule, teamData, commitActivity, githubIssues } = data;
+const { mentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues } = data;
 
 interface Challenge {
     id: string;
@@ -72,8 +72,20 @@ export async function getCommitActivity() {
 }
 
 export async function getGithubIssues() {
-    // Simulating fetching data for a static build
-    return Promise.resolve(githubIssues);
+    try {
+        const response = await fetch('https://api.github.com/repos/firebase/genkit/issues');
+        if (!response.ok) {
+            console.error('Failed to fetch GitHub issues:', response.statusText);
+            // Fallback to mock data in case of an API error
+            return Promise.resolve(mockGithubIssues);
+        }
+        const issues = await response.json();
+        return issues;
+    } catch (error) {
+        console.error('Error fetching GitHub issues:', error);
+        // Fallback to mock data in case of a network error
+        return Promise.resolve(mockGithubIssues);
+    }
 }
 
 export async function createTeam(teamName: string, projectIdea: string): Promise<string> {
