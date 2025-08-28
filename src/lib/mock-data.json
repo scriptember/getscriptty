@@ -52,11 +52,35 @@
       "track": "Main Track"
     },
     {
+      "id": "sept-w1-1",
+      "date": "September 5, 2024",
+      "time": "2:00 PM",
+      "title": "Workshop: Deep Dive into Next.js App Router",
+      "speaker": "Community Mentor",
+      "track": "Workshops"
+    },
+    {
       "id": "3",
       "date": "September 8, 2024",
       "time": "2:00 PM",
       "title": "Workshop: Building with Genkit & Firebase",
       "speaker": "John Smith, Google",
+      "track": "Workshops"
+    },
+    {
+      "id": "sept-w2-1",
+      "date": "September 11, 2024",
+      "time": "1:00 PM",
+      "title": "Talk: Advanced Tailwind CSS Techniques",
+      "speaker": "UI/UX Expert",
+      "track": "Talks"
+    },
+     {
+      "id": "sept-w2-2",
+      "date": "September 13, 2024",
+      "time": "3:00 PM",
+      "title": "Workshop: UI/UX for Developers",
+      "speaker": "Sarah Drasner",
       "track": "Workshops"
     },
     {
@@ -66,6 +90,38 @@
       "title": "Fireside Chat with Project Maintainers",
       "speaker": "Various Guests",
       "track": "Community"
+    },
+    {
+      "id": "sept-w3-1",
+      "date": "September 18, 2024",
+      "time": "2:00 PM",
+      "title": "Workshop: State Management in React",
+      "speaker": "Community Mentor",
+      "track": "Workshops"
+    },
+     {
+      "id": "sept-w3-2",
+      "date": "September 20, 2024",
+      "time": "4:00 PM",
+      "title": "Talk: Building Accessible Web Apps",
+      "speaker": "Accessibility Advocate",
+      "track": "Talks"
+    },
+    {
+      "id": "sept-w4-1",
+      "date": "September 25, 2024",
+      "time": "3:00 PM",
+      "title": "Workshop: Mastering Server Actions in Next.js",
+      "speaker": "Community Mentor",
+      "track": "Workshops"
+    },
+    {
+      "id": "sept-w4-2",
+      "date": "September 27, 2024",
+      "time": "5:00 PM",
+      "title": "Talk: Preparing Your Project for Submission",
+      "speaker": "The Scriptember Team",
+      "track": "Main Track"
     },
      {
       "id": "5",
