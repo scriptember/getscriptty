@@ -1,8 +1,11 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  basePath: '/scriptember25',
+  assetPrefix: '/scriptember25/',
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
