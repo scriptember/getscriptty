@@ -1,6 +1,6 @@
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import { mentors, challenges, schedule, teamData, commitActivity, githubIssues } from '@/lib/mock-data';
 
 
@@ -30,7 +30,7 @@ interface ScheduleItem {
     track?: string;
 }
 
-interface Team {
+export interface Team {
     id: string;
     name: string;
     projectIdea: string;
@@ -43,21 +43,44 @@ export async function getTeamByUserId(userId: string = "default_user"): Promise<
     return Promise.resolve(teamData);
 }
 
+export async function getTeams(): Promise<Team[]> {
+    const teamsCollection = collection(db, 'teams');
+    const q = query(teamsCollection, orderBy('createdAt', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const teams = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Team, 'id'>)
+    }));
+    return teams;
+}
+
 
 export async function getMentors(): Promise<Mentor[]> {
-    // Simulating fetching data for a static build
-    return Promise.resolve(mentors);
+    const mentorsCollection = collection(db, 'mentors');
+    const querySnapshot = await getDocs(mentorsCollection);
+    return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Mentor, 'id'>)
+    }));
 }
 
 export async function getChallenges(): Promise<Challenge[]> {
-    // Simulating fetching data for a static build
-    const challengeList = challenges.sort((a, b) => a.points - b.points);
-    return Promise.resolve(challengeList);
+   const challengesCollection = collection(db, 'challenges');
+    const q = query(challengesCollection, orderBy('points', 'asc'));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Challenge, 'id'>)
+    }));
 }
 
 export async function getSchedule(): Promise<ScheduleItem[]> {
-    // Simulating fetching data for a static build
-    return Promise.resolve(schedule);
+    const scheduleCollection = collection(db, 'schedule');
+    const querySnapshot = await getDocs(scheduleCollection);
+    return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<ScheduleItem, 'id'>)
+    }));
 }
 
 export async function getCommitActivity() {
