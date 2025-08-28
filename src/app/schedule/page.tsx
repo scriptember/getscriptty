@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Mic } from "lucide-react";
 import { getSchedule } from "@/services/data-service";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default async function SchedulePage() {
   const schedule = await getSchedule();
@@ -18,34 +19,44 @@ export default async function SchedulePage() {
         </p>
       </div>
 
-      <div className="space-y-8">
-        {schedule.map((item, index) => (
-          <Card key={index} className="bg-card/50 border-border/50 transition-all hover:shadow-lg hover:border-primary/50">
-            <CardHeader>
-              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                <CardTitle className="text-xl text-foreground">{item.title}</CardTitle>
-                {item.track && <Badge variant="secondary">{item.track}</Badge>}
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <span>{item.date}</span>
+       {schedule.length === 0 ? (
+        <Alert className="max-w-xl mx-auto">
+            <Calendar className="h-4 w-4" />
+            <AlertTitle>Schedule is Empty</AlertTitle>
+            <AlertDescription>
+                The Schedule page is now connected to your Firestore database. To see events appear here, go to the Firebase console, create a collection named "schedule", and add your first document.
+            </AlertDescription>
+        </Alert>
+      ) : (
+        <div className="space-y-8">
+            {schedule.map((item) => (
+            <Card key={item.id} className="bg-card/50 border-border/50 transition-all hover:shadow-lg hover:border-primary/50">
+                <CardHeader>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                    <CardTitle className="text-xl text-foreground">{item.title}</CardTitle>
+                    {item.track && <Badge variant="secondary">{item.track}</Badge>}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  <span>{item.time}</span>
+                </CardHeader>
+                <CardContent>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span>{item.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    <span>{item.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                    <Mic className="h-4 w-4" />
+                    <span>{item.speaker}</span>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Mic className="h-4 w-4" />
-                  <span>{item.speaker}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                </CardContent>
+            </Card>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

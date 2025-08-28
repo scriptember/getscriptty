@@ -6,10 +6,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FileText, Github, Users, MessageSquare, Settings, Rocket, ExternalLink } from "lucide-react";
+import { FileText, Github, Users, MessageSquare, Settings, Rocket, ExternalLink, AlertCircle } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { formatDistanceToNow } from 'date-fns';
-import { getTeamInfo, getCommitActivity } from "@/services/data-service";
+import { getTeamByUserId, getCommitActivity } from "@/services/data-service";
+import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
+import Link from "next/link";
 
 interface TeamData {
     name: string;
@@ -47,8 +49,9 @@ export default function TeamDashboard() {
         async function fetchDashboardData() {
             try {
                 setIsLoading(true);
+                // In a real app, you'd get the current user's ID for getTeamByUserId
                 const [teamInfo, commitActivity] = await Promise.all([
-                    getTeamInfo(),
+                    getTeamByUserId(), 
                     getCommitActivity()
                 ]);
                 setTeamData(teamInfo);
@@ -79,17 +82,43 @@ export default function TeamDashboard() {
         );
     }
 
-    if (error || !teamData) {
+    if (error) {
         return (
             <Card className="bg-card/50 border-border/50">
                 <CardHeader>
                     <CardTitle>Error</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-destructive">{error || "Could not load team data."}</p>
+                    <p className="text-destructive">{error}</p>
                 </CardContent>
             </Card>
         )
+    }
+
+    if (!teamData) {
+        return (
+            <Card className="bg-card/50 border-border/50">
+                 <CardHeader>
+                    <CardTitle>No Team Found</CardTitle>
+                 </CardHeader>
+                <CardContent>
+                    <Alert variant="default" className="border-primary/50">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertTitle>You're not on a team yet!</AlertTitle>
+                        <AlertDescription>
+                            Create or join a team to see your project dashboard here.
+                        </AlertDescription>
+                    </Alert>
+                    <div className="mt-6 flex justify-center">
+                        <Button asChild>
+                           <Link href="/onboarding/create-team">
+                             <Users className="mr-2"/> Create a Team
+                           </Link>
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        );
     }
 
     return (
@@ -126,7 +155,8 @@ export default function TeamDashboard() {
                             <CardTitle>Recent Commits</CardTitle>
                         </CardHeader>
                         <CardContent>
-                           <ul className="space-y-4">
+                           {activity.length > 0 ? (
+                             <ul className="space-y-4">
                                 {activity.slice(0, 5).map(commit => (
                                     <li key={commit.sha} className="flex items-start gap-3">
                                         <Avatar className="h-8 w-8 mt-1 border-2 border-primary/50">
@@ -146,6 +176,9 @@ export default function TeamDashboard() {
                                     </li>
                                 ))}
                            </ul>
+                           ) : (
+                            <p className="text-sm text-muted-foreground">No commit activity found. Connect your GitHub repository to see recent commits.</p>
+                           )}
                         </CardContent>
                     </Card>
                 </div>
@@ -176,7 +209,7 @@ export default function TeamDashboard() {
                            <Button variant="outline" asChild><a href={teamData.repoUrl} target="_blank" rel="noopener noreferrer"><Github className="mr-2 h-4 w-4"/> View on GitHub</a></Button>
                            <Button variant="outline" asChild><a href={teamData.chatUrl} target="_blank" rel="noopener noreferrer"><MessageSquare className="mr-2 h-4 w-4"/> Team Chat</a></Button>
                            <Button variant="outline" asChild><a href={teamData.docsUrl} target="_blank" rel="noopener noreferrer"><FileText className="mr-2 h-4 w-4"/> Project Docs</a></Button>
-                        </Content>
+                        </CardContent>
                     </Card>
                 </div>
             </CardContent>
