@@ -2,7 +2,48 @@
 {
   "mentors": [],
   "challenges": [],
-  "schedule": [],
+  "schedule": [
+    {
+      "id": "1",
+      "date": "September 1, 2024",
+      "time": "10:00 AM",
+      "title": "Opening Ceremony & Kick-off",
+      "speaker": "The Scriptember Team",
+      "track": "Main Track"
+    },
+    {
+      "id": "2",
+      "date": "September 1, 2024",
+      "time": "11:00 AM",
+      "title": "Keynote: The Future of JS in Open Source",
+      "speaker": "Jane Doe, CEO of OpenTech",
+      "track": "Main Track"
+    },
+    {
+      "id": "3",
+      "date": "September 2, 2024",
+      "time": "2:00 PM",
+      "title": "Workshop: Building with Genkit & Firebase",
+      "speaker": "John Smith, Google",
+      "track": "Workshops"
+    },
+    {
+      "id": "4",
+      "date": "September 3, 2024",
+      "time": "4:00 PM",
+      "title": "Fireside Chat with Project Maintainers",
+      "speaker": "Various Guests",
+      "track": "Community"
+    },
+     {
+      "id": "5",
+      "date": "September 7, 2024",
+      "time": "5:00 PM",
+      "title": "Closing Ceremony & Prize Announcements",
+      "speaker": "The Scriptember Team",
+      "track": "Main Track"
+    }
+  ],
   "teamData": {
     "id": "team1",
     "name": "The Code Crusaders",
