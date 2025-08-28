@@ -1,56 +1,13 @@
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, Target, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getChallenges } from "@/services/data-service";
 
-const baseChallenges = [
-  {
-    title: "Personal Portfolio with Next.js",
-    description: "Build a stunning, responsive portfolio website with Next.js and Tailwind CSS to showcase your skills and projects. A great starting point for any developer.",
-    criteria: ["Next.js", "React", "Design"],
-    points: 250,
-    difficulty: "Beginner",
-  },
-  {
-    title: "Interactive Data Visualization with D3.js",
-    description: "Find a public dataset on GitHub and build a web app to visualize it in an interesting way using D3.js and React. ",
-    criteria: ["D3.js", "Data Handling", "React"],
-    points: 400,
-    difficulty: "Beginner",
-  },
-  {
-    title: "Real-Time Chat App with Socket.IO",
-    description: "Create a chat application using Node.js, Express, and Socket.IO. Allow users to join rooms and communicate in real-time.",
-    criteria: ["WebSockets", "Node.js", "UI/UX"],
-    points: 600,
-    difficulty: "Intermediate",
-  },
-  {
-    title: "AI-Powered README Generator with Genkit",
-    description: "Build a tool that uses a generative AI model (like one from Genkit) to automatically create a high-quality README.md file for a GitHub repository.",
-    criteria: ["AI Integration", "GitHub API", "Utility"],
-    points: 750,
-    difficulty: "Intermediate",
-  },
-  {
-    title: "Contribute to a Major JS Open-Source Project",
-    description: "Find a well-known JavaScript open-source project (e.g., on GitHub) and make a meaningful contribution, like fixing a complex bug or implementing a requested feature.",
-    criteria: ["Impact", "Code Quality", "Collaboration"],
-    points: 900,
-    difficulty: "Advanced",
-  },
-  {
-    title: "Browser Extension with React",
-    description: "Create a useful browser extension for Chrome or Firefox using React. Focus on a specific task that can be automated or simplified.",
-    criteria: ["React", "Browser APIs", "Utility"],
-    points: 1000,
-    difficulty: "Advanced",
-  },
-];
+export default async function ChallengesPage() {
+  const challenges = await getChallenges();
 
-const challenges = Array.from({ length: 5 }).flatMap(() => baseChallenges).sort((a, b) => a.points - b.points);
-
-export default function ChallengesPage() {
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
       <div className="text-center mb-12">

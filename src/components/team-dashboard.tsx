@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,21 +9,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FileText, Github, Users, MessageSquare, Settings, Rocket, ExternalLink } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { formatDistanceToNow } from 'date-fns';
+import { getTeamInfo, getCommitActivity } from "@/services/data-service";
 
-const teamData = {
-    name: "The Code Crusaders",
-    project: "AI-Powered Code Reviewer",
-    progress: 65,
-    members: [
-        { name: "Alice", avatar: "https://picsum.photos/seed/alice/40/40" },
-        { name: "Bob", avatar: "https://picsum.photos/seed/bob/40/40" },
-        { name: "Charlie", avatar: "https://picsum.photos/seed/charlie/40/40" },
-        { name: "You", avatar: "https://picsum.photos/seed/you/40/40" },
-    ],
-    repoUrl: "https://github.com/firebase/genkit",
-    chatUrl: "#",
-    docsUrl: "#",
-};
+interface TeamData {
+    name: string;
+    project: string;
+    progress: number;
+    members: { name: string; avatar: string; }[];
+    repoUrl: string;
+    chatUrl: string;
+    docsUrl: string;
+}
 
 interface Commit {
     sha: string;
@@ -41,46 +38,59 @@ interface Commit {
 }
 
 export default function TeamDashboard() {
+    const [teamData, setTeamData] = useState<TeamData | null>(null);
     const [activity, setActivity] = useState<Commit[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        async function fetchActivity() {
+        async function fetchDashboardData() {
             try {
                 setIsLoading(true);
-                // In this environment, we cannot fetch real data.
-                // We'll use mock data.
-                 const mockActivity: Commit[] = [
-                    {
-                        sha: 'abc1234',
-                        html_url: '#',
-                        commit: {
-                            author: { name: 'dev-one', date: new Date().toISOString() },
-                            message: 'feat: Implement initial project structure'
-                        },
-                        author: { avatar_url: 'https://picsum.photos/seed/dev1/40/40', login: 'dev-one' }
-                    },
-                    {
-                        sha: 'def5678',
-                        html_url: '#',
-                        commit: {
-                            author: { name: 'dev-two', date: new Date(Date.now() - 3600000).toISOString() },
-                            message: 'fix: Corrected typo in documentation'
-                        },
-                        author: { avatar_url: 'https://picsum.photos/seed/dev2/40/40', login: 'dev-two' }
-                    }
-                ];
-                setActivity(mockActivity);
+                const [teamInfo, commitActivity] = await Promise.all([
+                    getTeamInfo(),
+                    getCommitActivity()
+                ]);
+                setTeamData(teamInfo);
+                setActivity(commitActivity);
             } catch (err) {
-                setError("An unexpected error occurred.");
+                setError("An unexpected error occurred fetching dashboard data.");
+                console.error(err);
             } finally {
                 setIsLoading(false);
             }
         }
 
-        fetchActivity();
+        fetchDashboardData();
     }, []);
+
+    if (isLoading) {
+        return (
+            <Card className="bg-card/50 border-border/50">
+                <CardHeader>
+                    <Skeleton className="h-8 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <Skeleton className="h-48 w-full" />
+                    <Skeleton className="h-64 w-full" />
+                </CardContent>
+            </Card>
+        );
+    }
+
+    if (error || !teamData) {
+        return (
+            <Card className="bg-card/50 border-border/50">
+                <CardHeader>
+                    <CardTitle>Error</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-destructive">{error || "Could not load team data."}</p>
+                </CardContent>
+            </Card>
+        )
+    }
 
     return (
         <Card className="bg-card/50 border-border/50">
@@ -116,34 +126,26 @@ export default function TeamDashboard() {
                             <CardTitle>Recent Commits</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            {isLoading ? (
-                                <div className="space-y-4">
-                                    {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
-                                </div>
-                            ) : error ? (
-                                <p className="text-destructive">{error}</p>
-                            ) : (
-                               <ul className="space-y-4">
-                                    {activity.slice(0, 5).map(commit => (
-                                        <li key={commit.sha} className="flex items-start gap-3">
-                                            <Avatar className="h-8 w-8 mt-1 border-2 border-primary/50">
-                                                <AvatarImage src={commit.author?.avatar_url} alt={commit.commit.author.name} data-ai-hint="avatar"/>
-                                                <AvatarFallback>{commit.commit.author.name.charAt(0)}</AvatarFallback>
-                                            </Avatar>
-                                            <div className="flex-1">
-                                                <p className="text-sm text-foreground break-words">{commit.commit.message.split('\n')[0]}</p>
-                                                <div className="text-xs text-muted-foreground mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-                                                    <span className="font-medium">{commit.author?.login || commit.commit.author.name}</span>
-                                                    <span>committed {formatDistanceToNow(new Date(commit.commit.author.date), { addSuffix: true })}</span>
-                                                     <a href={commit.html_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary hover:underline">
-                                                        ({commit.sha.substring(0, 7)}) <ExternalLink className="h-3 w-3 ml-1"/>
-                                                     </a>
-                                                </div>
+                           <ul className="space-y-4">
+                                {activity.slice(0, 5).map(commit => (
+                                    <li key={commit.sha} className="flex items-start gap-3">
+                                        <Avatar className="h-8 w-8 mt-1 border-2 border-primary/50">
+                                            <AvatarImage src={commit.author?.avatar_url} alt={commit.commit.author.name} data-ai-hint="avatar"/>
+                                            <AvatarFallback>{commit.commit.author.name.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <div className="flex-1">
+                                            <p className="text-sm text-foreground break-words">{commit.commit.message.split('\n')[0]}</p>
+                                            <div className="text-xs text-muted-foreground mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                                                <span className="font-medium">{commit.author?.login || commit.commit.author.name}</span>
+                                                <span>committed {formatDistanceToNow(new Date(commit.commit.author.date), { addSuffix: true })}</span>
+                                                 <a href={commit.html_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary hover:underline">
+                                                    ({commit.sha.substring(0, 7)}) <ExternalLink className="h-3 w-3 ml-1"/>
+                                                 </a>
                                             </div>
-                                        </li>
-                                    ))}
-                               </ul>
-                            )}
+                                        </div>
+                                    </li>
+                                ))}
+                           </ul>
                         </CardContent>
                     </Card>
                 </div>

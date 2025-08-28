@@ -4,35 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, Globe, Briefcase } from "lucide-react";
+import { getMentors } from "@/services/data-service";
 
-const mentors = [
-  {
-    name: "Alex Johnson",
-    bio: "Senior Frontend Engineer at Google, specializing in React and performance optimization. Passionate about open-source and mentoring.",
-    expertise: ["React", "Next.js", "Performance", "TypeScript"],
-    avatar: "https://picsum.photos/seed/mentor1/200/200",
-  },
-  {
-    name: "Samantha Lee",
-    bio: "Firebase expert and Google Developer Expert. Loves helping teams build scalable and robust backends for their applications.",
-    expertise: ["Firebase", "Node.js", "Cloud Functions", "NoSQL"],
-    avatar: "https://picsum.photos/seed/mentor2/200/200",
-  },
-  {
-    name: "Ben Carter",
-    bio: "UX/UI Designer with a knack for creating beautiful and intuitive interfaces. Believes good design is key to a successful hackathon project.",
-    expertise: ["UI/UX Design", "Figma", "Tailwind CSS", "Accessibility"],
-    avatar: "https://picsum.photos/seed/mentor3/200/200",
-  },
-  {
-    name: "David Chen",
-    bio: "AI Specialist and Staff Engineer at Google. Focused on making generative AI accessible to all developers. Core contributor to Genkit.",
-    expertise: ["GenAI", "Genkit", "LLMs", "AI Ethics"],
-    avatar: "https://picsum.photos/seed/mentor4/200/200",
-  },
-];
+export default async function MentorsPage() {
+  const mentors = await getMentors();
 
-export default function MentorsPage() {
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
       <div className="text-center mb-12">
