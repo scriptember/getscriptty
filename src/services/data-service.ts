@@ -30,6 +30,7 @@ interface ScheduleItem {
 }
 
 interface TeamData {
+    id: string;
     name: string;
     project: string;
     progress: number;

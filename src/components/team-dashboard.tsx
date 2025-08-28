@@ -106,7 +106,7 @@ export default function TeamDashboard() {
                         <AlertCircle className="h-4 w-4" />
                         <AlertTitle>You're not on a team yet!</AlertTitle>
                         <AlertDescription>
-                            Create or join a team to see your project dashboard here.
+                            Create or join a team to see your project dashboard here. You can manage teams in the Firebase console.
                         </AlertDescription>
                     </Alert>
                     <div className="mt-6 flex justify-center">
