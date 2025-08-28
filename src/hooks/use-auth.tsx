@@ -13,15 +13,23 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  User,
+  User as FirebaseUser,
 } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, DocumentData } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useToast } from "./use-toast";
 
+export interface AppUser {
+    uid: string;
+    displayName: string | null;
+    email: string | null;
+    photoURL: string | null;
+    isAdmin: boolean;
+}
+
 interface AuthContextType {
-  user: User | null;
+  user: AppUser | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
@@ -30,14 +38,43 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+          const appUser = {
+            uid: firebaseUser.uid,
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            photoURL: firebaseUser.photoURL,
+            isAdmin: docSnap.data()?.isAdmin || false,
+          } as AppUser;
+          setUser(appUser);
+        } else {
+            // This case handles a user who is authenticated with Firebase
+            // but doesn't have a document in the 'users' collection.
+            // We create it for them.
+            const newUserDoc: AppUser = {
+                uid: firebaseUser.uid,
+                displayName: firebaseUser.displayName,
+                email: firebaseUser.email,
+                photoURL: firebaseUser.photoURL,
+                isAdmin: false,
+            };
+            await setDoc(userRef, newUserDoc);
+            setUser(newUserDoc);
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
@@ -45,23 +82,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
+    setLoading(true);
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+      const firebaseUser = result.user;
 
-      // Check if user exists in Firestore, if not create a new document
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(db, "users", firebaseUser.uid);
       const docSnap = await getDoc(userRef);
 
       if (!docSnap.exists()) {
-        await setDoc(userRef, {
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          isAdmin: false, // Default role
-        });
+        const newUserDoc: AppUser = {
+            uid: firebaseUser.uid,
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            photoURL: firebaseUser.photoURL,
+            isAdmin: false,
+        };
+        await setDoc(userRef, newUserDoc);
+        setUser(newUserDoc);
+      } else {
+         const appUser = {
+            uid: firebaseUser.uid,
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            photoURL: firebaseUser.photoURL,
+            isAdmin: docSnap.data()?.isAdmin || false,
+          } as AppUser;
+          setUser(appUser);
       }
 
       toast({
@@ -76,12 +124,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         title: "Authentication Failed",
         description: "Could not sign in with Google. Please try again.",
       });
+    } finally {
+        setLoading(false);
     }
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
+      setUser(null);
       toast({
         title: "Logged Out",
         description: "You have been successfully logged out.",
