@@ -1,7 +1,112 @@
 
 {
   "mentors": [],
-  "challenges": [],
+  "challenges": [
+    {
+      "id": "chal-beg-1",
+      "title": "Personal Portfolio Website",
+      "description": "Create a beautiful, responsive personal portfolio to showcase your skills and projects. A perfect starting point for new developers.",
+      "criteria": ["UI/UX", "Responsiveness", "Code Quality"],
+      "points": 100,
+      "difficulty": "Beginner"
+    },
+    {
+      "id": "chal-beg-2",
+      "title": "Markdown Previewer",
+      "description": "Build an in-browser markdown editor that shows a live preview of the rendered HTML as you type.",
+      "criteria": ["Functionality", "UI/UX", "Code Quality"],
+      "points": 150,
+      "difficulty": "Beginner"
+    },
+    {
+      "id": "chal-beg-3",
+      "title": "Nostalgic Tamagotchi Clone",
+      "description": "Recreate the classic 90s digital pet. Your pet should have needs (hunger, happiness) that change over time, and the user must care for it.",
+      "criteria": ["Creativity", "Functionality", "UI/UX"],
+      "points": 200,
+      "difficulty": "Beginner"
+    },
+    {
+      "id": "chal-int-1",
+      "title": "Interactive Data Dashboard",
+      "description": "Build a dashboard to visualize a dataset of your choice using shadcn/ui charts. The dashboard should be interactive, allowing users to filter and sort the data.",
+      "criteria": ["Data Visualization", "UI/UX", "Functionality"],
+      "points": 250,
+      "difficulty": "Intermediate"
+    },
+    {
+      "id": "chal-int-2",
+      "title": "AI-Powered Recipe Generator",
+      "description": "Create an app that generates a recipe based on a list of ingredients a user has. Use Genkit to create the recipe suggestions.",
+      "criteria": ["GenAI Integration", "Functionality", "Creativity"],
+      "points": 350,
+      "difficulty": "Intermediate"
+    },
+    {
+      "id": "chal-int-3",
+      "title": "Real-Time Chat Application",
+      "description": "Develop a real-time chat application using Firestore. Users should be able to join chat rooms and send messages that appear instantly for all other users in the room.",
+      "criteria": ["Real-time Sync", "Functionality", "UI/UX"],
+      "points": 400,
+      "difficulty": "Intermediate"
+    },
+    {
+      "id": "chal-int-4",
+      "title": "GitHub Issue Explorer",
+      "description": "Connect to the live GitHub API to fetch and display issues from a public repository. Allow users to filter by labels and state (open/closed).",
+      "criteria": ["API Integration", "UI/UX", "Functionality"],
+      "points": 300,
+      "difficulty": "Intermediate"
+    },
+    {
+      "id": "chal-adv-1",
+      "title": "AI-Powered Code Reviewer",
+      "description": "Build a tool that uses Genkit to analyze a code snippet and provide suggestions for improvement, such as identifying potential bugs, suggesting refactors, or improving performance.",
+      "criteria": ["GenAI Integration", "Usefulness", "Technical Complexity"],
+      "points": 500,
+      "difficulty": "Advanced"
+    },
+    {
+      "id": "chal-adv-2",
+      "title": "Collaborative Whiteboard",
+      "description": "Create a real-time collaborative whiteboard where multiple users can draw simultaneously. Changes should be synced across all connected clients using Firestore.",
+      "criteria": ["Real-time Sync", "Technical Complexity", "UI/UX"],
+      "points": 600,
+      "difficulty": "Advanced"
+    },
+    {
+      "id": "chal-adv-3",
+      "title": "Custom shadcn/ui Theme Builder",
+      "description": "Build a visual editor that allows users to customize the shadcn/ui theme by changing colors and fonts, and then export the generated CSS variables.",
+      "criteria": ["Technical Complexity", "Usefulness", "UI/UX"],
+      "points": 550,
+      "difficulty": "Advanced"
+    },
+    {
+        "id": "chal-beg-4",
+        "title": "Weather App",
+        "description": "Create a simple weather application that fetches and displays the current weather for a user's location or a searched city using a free weather API.",
+        "criteria": ["API Integration", "UI/UX", "Responsiveness"],
+        "points": 150,
+        "difficulty": "Beginner"
+    },
+    {
+        "id": "chal-int-5",
+        "title": "E-Commerce Store Front",
+        "description": "Build the front-end of an e-commerce website. Include a product listing page, product detail page, and a shopping cart. Use Firestore to store product data.",
+        "criteria": ["UI/UX", "Functionality", "Firestore Integration"],
+        "points": 400,
+        "difficulty": "Intermediate"
+    },
+    {
+        "id": "chal-adv-4",
+        "title": "AI Story Generator with Images",
+        "description": "Use Genkit to write a short story based on a user's prompt. Then, use an image generation model to create an illustration for the story.",
+        "criteria": ["GenAI Integration", "Creativity", "Technical Complexity"],
+        "points": 650,
+        "difficulty": "Advanced"
+    }
+  ],
   "schedule": [
     {
       "id": "pre1",
