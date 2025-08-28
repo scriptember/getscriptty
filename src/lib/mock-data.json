@@ -4,16 +4,48 @@
   "challenges": [],
   "schedule": [
     {
-      "id": "1",
+      "id": "pre1",
+      "date": "August 29, 2024",
+      "time": "12:00 PM",
+      "title": "Pre-Workshop: Setting up Your Dev Environment",
+      "speaker": "The Scriptember Team",
+      "track": "Pre-Hack"
+    },
+    {
+      "id": "pre2",
+      "date": "August 30, 2024",
+      "time": "12:00 PM",
+      "title": "Pre-Workshop: Intro to Git & GitHub",
+      "speaker": "The Scriptember Team",
+      "track": "Pre-Hack"
+    },
+    {
+      "id": "pre3",
+      "date": "August 31, 2024",
+      "time": "1:00 PM",
+      "title": "Pre-Workshop: JavaScript/TypeScript Crash Course",
+      "speaker": "Community Mentors",
+      "track": "Pre-Hack"
+    },
+    {
+      "id": "pre4",
       "date": "September 1, 2024",
+      "time": "1:00 PM",
+      "title": "Pre-Workshop: React & Next.js Fundamentals",
+      "speaker": "Community Mentors",
+      "track": "Pre-Hack"
+    },
+    {
+      "id": "1",
+      "date": "September 2, 2024",
       "time": "10:00 AM",
-      "title": "Opening Ceremony & Kick-off",
+      "title": "Opening Ceremony & Hackathon Kick-off",
       "speaker": "The Scriptember Team",
       "track": "Main Track"
     },
     {
       "id": "2",
-      "date": "September 1, 2024",
+      "date": "September 2, 2024",
       "time": "11:00 AM",
       "title": "Keynote: The Future of JS in Open Source",
       "speaker": "Jane Doe, CEO of OpenTech",
@@ -21,7 +53,7 @@
     },
     {
       "id": "3",
-      "date": "September 2, 2024",
+      "date": "September 8, 2024",
       "time": "2:00 PM",
       "title": "Workshop: Building with Genkit & Firebase",
       "speaker": "John Smith, Google",
@@ -29,7 +61,7 @@
     },
     {
       "id": "4",
-      "date": "September 3, 2024",
+      "date": "September 15, 2024",
       "time": "4:00 PM",
       "title": "Fireside Chat with Project Maintainers",
       "speaker": "Various Guests",
@@ -37,7 +69,7 @@
     },
      {
       "id": "5",
-      "date": "September 7, 2024",
+      "date": "October 1, 2024",
       "time": "5:00 PM",
       "title": "Closing Ceremony & Prize Announcements",
       "speaker": "The Scriptember Team",
