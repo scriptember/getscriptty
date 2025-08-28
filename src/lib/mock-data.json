@@ -1,0 +1,112 @@
+
+{
+  "mentors": [],
+  "challenges": [],
+  "schedule": [],
+  "teamData": {
+    "id": "team1",
+    "name": "The Code Crusaders",
+    "project": "AI-Powered Code Reviewer",
+    "progress": 65,
+    "members": [
+      {
+        "name": "Alice",
+        "avatar": "https://picsum.photos/seed/alice/40/40"
+      },
+      {
+        "name": "Bob",
+        "avatar": "https://picsum.photos/seed/bob/40/40"
+      },
+      {
+        "name": "Charlie",
+        "avatar": "https://picsum.photos/seed/charlie/40/40"
+      },
+      {
+        "name": "You",
+        "avatar": "https://picsum.photos/seed/you/40/40"
+      }
+    ],
+    "repoUrl": "https://github.com/firebase/genkit",
+    "chatUrl": "#",
+    "docsUrl": "#"
+  },
+  "commitActivity": [
+    {
+      "sha": "abc1234",
+      "html_url": "#",
+      "commit": {
+        "author": {
+          "name": "dev-one",
+          "date": "2024-09-06T15:08:44.204Z"
+        },
+        "message": "feat: Implement initial project structure"
+      },
+      "author": {
+        "avatar_url": "https://picsum.photos/seed/dev1/40/40",
+        "login": "dev-one"
+      }
+    },
+    {
+      "sha": "def5678",
+      "html_url": "#",
+      "commit": {
+        "author": {
+          "name": "dev-two",
+          "date": "2024-09-06T14:08:44.204Z"
+        },
+        "message": "fix: Corrected typo in documentation"
+      },
+      "author": {
+        "avatar_url": "https://picsum.photos/seed/dev2/40/40",
+        "login": "dev-two"
+      }
+    }
+  ],
+  "githubIssues": [
+    {
+      "id": 1,
+      "number": 123,
+      "title": "Fix documentation link in README",
+      "html_url": "#",
+      "state": "open",
+      "comments": 2,
+      "created_at": "2024-09-06T15:08:44.205Z",
+      "user": {
+        "login": "github-user",
+        "html_url": "#"
+      },
+      "labels": [
+        {
+          "id": 1,
+          "name": "documentation",
+          "color": "fbca04"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "number": 124,
+      "title": "Improve component performance",
+      "html_url": "#",
+      "state": "open",
+      "comments": 5,
+      "created_at": "2024-09-05T15:08:44.205Z",
+      "user": {
+        "login": "another-user",
+        "html_url": "#"
+      },
+      "labels": [
+        {
+          "id": 2,
+          "name": "performance",
+          "color": "d93f0b"
+        },
+        {
+          "id": 3,
+          "name": "good first issue",
+          "color": "0e8a16"
+        }
+      ]
+    }
+  ]
+}
