@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Rocket } from "lucide-react";
+import { createTeam } from "@/services/data-service";
 
 const formSchema = z.object({
   teamName: z.string().min(3, "Team name must be at least 3 characters long.").max(50, "Team name must be 50 characters or less."),
@@ -40,19 +41,23 @@ export default function TeamForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Here you would typically make an API call to create the team
-    console.log("Creating team with values:", values);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Team Created Successfully!",
-      description: `Your team "${values.teamName}" is ready.`,
-    });
-    
-    router.push("/dashboard"); // Redirect to a dashboard or home page after creation
-    setIsLoading(false);
+    try {
+      await createTeam(values.teamName, values.projectIdea);
+      toast({
+        title: "Team Created Successfully!",
+        description: `Your team "${values.teamName}" is ready.`,
+      });
+      router.push("/dashboard");
+    } catch (error) {
+        console.error("Error creating team:", error);
+        toast({
+            variant: "destructive",
+            title: "Error Creating Team",
+            description: "Could not create team. Please check the console and try again."
+        });
+    } finally {
+        setIsLoading(false);
+    }
   }
   
   return (

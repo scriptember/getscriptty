@@ -1,6 +1,6 @@
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit } from 'firebase/firestore';
+import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp } from 'firebase/firestore';
 import { mentors, challenges, schedule, teamData, commitActivity, githubIssues } from '@/lib/mock-data';
 
 
@@ -30,19 +30,15 @@ interface ScheduleItem {
     track?: string;
 }
 
-interface TeamData {
+interface Team {
     id: string;
     name: string;
-    project: string;
-    progress: number;
-    members: { name: string; avatar: string; }[];
-    repoUrl: string;
-    chatUrl: string;
-    docsUrl: string;
+    projectIdea: string;
+    createdAt: any;
 }
 
 // In a real app, you would pass the user's ID to this function
-export async function getTeamByUserId(userId: string = "default_user"): Promise<TeamData | null> {
+export async function getTeamByUserId(userId: string = "default_user"): Promise<any | null> {
     // Simulating fetching data for a static build
     return Promise.resolve(teamData);
 }
@@ -72,4 +68,13 @@ export async function getCommitActivity() {
 export async function getGithubIssues() {
     // Simulating fetching data for a static build
     return Promise.resolve(githubIssues);
+}
+
+export async function createTeam(teamName: string, projectIdea: string): Promise<string> {
+    const docRef = await addDoc(collection(db, "teams"), {
+        name: teamName,
+        projectIdea: projectIdea,
+        createdAt: serverTimestamp(),
+    });
+    return docRef.id;
 }
