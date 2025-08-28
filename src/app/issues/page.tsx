@@ -6,33 +6,8 @@ import { GitPullRequestDraft, MessageSquare, ExternalLink } from "lucide-react";
 import { formatDistanceToNow } from 'date-fns';
 import { Button } from "@/components/ui/button";
 import * as React from 'react';
-
-// This is a placeholder for the static export.
-// In a server environment, this would fetch from the GitHub API.
-const issues: GithubIssue[] = [
-    {
-      id: 1,
-      number: 123,
-      title: "Fix documentation link in README",
-      html_url: "#",
-      state: "open",
-      comments: 2,
-      created_at: new Date().toISOString(),
-      user: { login: "github-user", html_url: "#" },
-      labels: [{ id: 1, name: "documentation", color: "fbca04" }]
-    },
-    {
-      id: 2,
-      number: 124,
-      title: "Improve component performance",
-      html_url: "#",
-      state: "open",
-      comments: 5,
-      created_at: new Date().toISOString(),
-      user: { login: "another-user", html_url: "#" },
-      labels: [{ id: 2, name: "performance", color: "d93f0b" }, { id: 3, name: "good first issue", color: "0e8a16" }]
-    }
-];
+import { getGithubIssues } from "@/services/data-service";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface GithubIssue {
     id: number;
@@ -56,6 +31,49 @@ interface GithubIssue {
 
 
 function IssuesList() {
+    const [issues, setIssues] = React.useState<GithubIssue[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    
+    React.useEffect(() => {
+        async function loadIssues() {
+            setIsLoading(true);
+            const fetchedIssues = await getGithubIssues();
+            setIssues(fetchedIssues);
+            setIsLoading(false);
+        }
+        loadIssues();
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="space-y-6">
+                <Card className="bg-card/50 border-border/50">
+                    <CardHeader>
+                        <Skeleton className="h-6 w-3/4" />
+                        <Skeleton className="h-4 w-1/2 mt-2" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex gap-2">
+                             <Skeleton className="h-5 w-20" />
+                             <Skeleton className="h-5 w-24" />
+                        </div>
+                    </CardContent>
+                </Card>
+                 <Card className="bg-card/50 border-border/50">
+                    <CardHeader>
+                        <Skeleton className="h-6 w-4/5" />
+                        <Skeleton className="h-4 w-1/2 mt-2" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex gap-2">
+                             <Skeleton className="h-5 w-28" />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+
     const openIssues = issues.filter(issue => !issue.pull_request);
 
     return (
@@ -124,14 +142,12 @@ export default function IssuesPage() {
                     Looking for a challenge? Pick an issue from a real-world open-source project and start contributing.
                 </p>
                  <p className="mt-2 text-sm text-muted-foreground">
-                    Currently showing issues from <a href="https://github.com/firebase/genkit" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">firebase/genkit</a>.
+                    Currently showing mock issues. Connect to the GitHub API to see live data.
                 </p>
             </div>
 
             <div className="max-w-4xl mx-auto">
-                <React.Suspense fallback={<p>Loading issues...</p>}>
-                    <IssuesList />
-                </React.Suspense>
+                 <IssuesList />
             </div>
         </div>
     );

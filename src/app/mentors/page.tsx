@@ -26,7 +26,7 @@ export default async function MentorsPage() {
             <Users className="h-4 w-4" />
             <AlertTitle>No Mentors Found</AlertTitle>
             <AlertDescription>
-                The Mentors page is now connected to your Firestore database. To see mentors appear here, go to the Firebase console, create a collection named "mentors", and add your first document.
+                This page is ready. Mentors will appear here once they are added to the mock data store.
             </AlertDescription>
         </Alert>
       ) : (

@@ -24,7 +24,7 @@ export default async function SchedulePage() {
             <Calendar className="h-4 w-4" />
             <AlertTitle>Schedule is Empty</AlertTitle>
             <AlertDescription>
-                The Schedule page is now connected to your Firestore database. To see events appear here, go to the Firebase console, create a collection named "schedule", and add your first document.
+                This page is ready. Events will appear here once they are added to the mock data store.
             </AlertDescription>
         </Alert>
       ) : (

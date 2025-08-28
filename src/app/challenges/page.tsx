@@ -24,15 +24,15 @@ export default async function ChallengesPage() {
       {challenges.length === 0 ? (
         <Alert className="max-w-xl mx-auto">
             <Rocket className="h-4 w-4" />
-            <AlertTitle>Your Database is Ready!</AlertTitle>
+            <AlertTitle>No Challenges Found!</AlertTitle>
             <AlertDescription>
-                The Challenges page is now connected to your Firestore database. To see challenges appear here, go to the Firebase console, create a collection named "challenges", and add your first document.
+                This page is ready. Challenges will be displayed here once they are added to the mock data store.
             </AlertDescription>
         </Alert>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((challenge, index) => (
-            <Card key={index} className="flex flex-col bg-card/50 border-border/50 transition-all hover:shadow-lg hover:border-primary/50">
+            {challenges.map((challenge) => (
+            <Card key={challenge.id} className="flex flex-col bg-card/50 border-border/50 transition-all hover:shadow-lg hover:border-primary/50">
                 <CardHeader>
                     <div className="flex justify-between items-start">
                     <CardTitle className="text-2xl text-foreground pr-4">{challenge.title}</CardTitle>
