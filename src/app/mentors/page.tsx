@@ -73,17 +73,13 @@ export default async function MentorsPage() {
             </Card>
             ))}
              <Link href="/onboarding/apply-mentor" className="h-full">
-                <Card className="flex flex-col text-center bg-card/50 border-dashed border-border/50 transition-all hover:shadow-lg hover:border-primary/50 transform hover:-translate-y-1 h-full items-center justify-center">
+                <Card className="flex flex-col text-center bg-card/50 border-dashed border-border/50 transition-all hover:shadow-lg hover:border-primary/50 transform hover:-translate-y-1 h-full items-center justify-center group">
                     <div className="flex flex-col items-center justify-center p-6">
                         <Plus className="h-16 w-16 text-muted-foreground transition-colors group-hover:text-primary" />
                         <p className="mt-4 text-muted-foreground font-semibold">Apply to be a Mentor</p>
                     </div>
                 </Card>
             </Link>
-            {[...Array(2)].map((_, i) => (
-                 <Card key={i} className="flex flex-col text-center bg-card/50 border-dashed border-border/50 h-full items-center justify-center">
-                 </Card>
-            ))}
         </div>
       )}
     </div>

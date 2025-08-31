@@ -12,12 +12,6 @@ import { Button } from "@/components/ui/button";
 export default async function ProjectsPage() {
   const teams = await getTeams();
 
-  // The 'createdAt' field from mock-data is a string, so we convert it to a Date object
-  const teamsWithDates = teams.map(team => ({
-      ...team,
-      createdAt: new Date(team.createdAt),
-  }));
-
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
       <div className="text-center mb-12">
@@ -58,7 +52,7 @@ export default async function ProjectsPage() {
             </Alert>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {teamsWithDates.map((team) => (
+                {teams.map((team) => (
                     <Card key={team.id} className="flex flex-col bg-card/50 border-border/50 transition-all hover:shadow-lg hover:border-primary/50">
                         <CardHeader>
                             <CardTitle className="text-xl text-foreground">{team.name}</CardTitle>

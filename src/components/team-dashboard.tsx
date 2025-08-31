@@ -160,7 +160,7 @@ export default function TeamDashboard() {
                                 {activity.slice(0, 5).map(commit => (
                                     <li key={commit.sha} className="flex items-start gap-3">
                                         <Avatar className="h-8 w-8 mt-1 border-2 border-primary/50">
-                                            <AvatarImage src={commit.author?.avatar_url} alt={commit.commit.author.name} data-ai-hint="avatar"/>
+                                            <AvatarImage src={commit.author?.avatar_url} alt={commit.commit.author.name} data-ai-hint="github avatar"/>
                                             <AvatarFallback>{commit.commit.author.name.charAt(0)}</AvatarFallback>
                                         </Avatar>
                                         <div className="flex-1">

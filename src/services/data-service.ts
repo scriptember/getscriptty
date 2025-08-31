@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams, sponsors: mockSponsors } = data;
+const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, sponsors: mockSponsors } = data;
 
 interface Challenge {
     id: string;
@@ -31,8 +31,9 @@ interface SponsorTier {
 }
 
 interface Sponsors {
-    gold: SponsorTier[];
+    [key: string]: SponsorTier[];
 }
+
 
 interface ScheduleItem {
     id: string;
@@ -57,7 +58,20 @@ export async function getTeamByUserId(userId: string = "default_user"): Promise<
 }
 
 export async function getTeams(): Promise<Team[]> {
-    return Promise.resolve(mockTeams);
+    const firestoreQuery = query(collection(db, "teams"), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(firestoreQuery);
+
+    const teams = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+            id: doc.id,
+            name: data.name,
+            projectIdea: data.projectIdea,
+            createdAt: data.createdAt?.toDate() ?? new Date(), // Convert timestamp to Date
+        };
+    });
+    
+    return teams;
 }
 
 
