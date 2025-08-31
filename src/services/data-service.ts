@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, sponsors: mockSponsors } = data;
+const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, sponsors: mockSponsors, teams: mockTeams } = data;
 
 interface Challenge {
     id: string;
@@ -58,20 +58,12 @@ export async function getTeamByUserId(userId: string = "default_user"): Promise<
 }
 
 export async function getTeams(): Promise<Team[]> {
-    const firestoreQuery = query(collection(db, "teams"), orderBy("createdAt", "desc"));
-    const querySnapshot = await getDocs(firestoreQuery);
-
-    const teams = querySnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-            id: doc.id,
-            name: data.name,
-            projectIdea: data.projectIdea,
-            createdAt: data.createdAt?.toDate() ?? new Date(), // Convert timestamp to Date
-        };
-    });
-    
-    return teams;
+    // Using mock data for build stability. Firestore queries can fail during static export.
+    const teamsWithDate = (mockTeams || []).map((team: any) => ({
+        ...team,
+        createdAt: new Date(team.createdAt),
+    }));
+    return Promise.resolve(teamsWithDate as Team[]);
 }
 
 
@@ -105,6 +97,7 @@ export async function getGithubIssues() {
     return Promise.resolve(mockGithubIssues);
 }
 
+// Write operations are fine as they are called from client components, not during build.
 export async function createTeam(teamName: string, projectIdea: string): Promise<string> {
     const docRef = await addDoc(collection(db, "teams"), {
         name: teamName,
