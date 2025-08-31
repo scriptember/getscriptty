@@ -2,6 +2,15 @@
 {
   "mentors": [
     {
+      "id": "mentor-5",
+      "name": "Abdulmalik",
+      "bio": "Founder of #Scriptember. Full-stack developer and open-source enthusiast. Passionate about building with modern web technologies.",
+      "expertise": ["Next.js", "React", "Firebase", "Node.js"],
+      "avatar": "https://picsum.photos/seed/malik/100/100",
+      "githubUrl": "https://github.com/malikobansa",
+      "websiteUrl": "https://obansa.com"
+    },
+    {
       "id": "mentor-1",
       "name": "Grace Hopper",
       "bio": "Pioneering computer scientist and inventor of the first compiler. Expert in system design and low-level programming.",
@@ -36,15 +45,6 @@
       "avatar": "https://picsum.photos/seed/linus/100/100",
       "githubUrl": "#",
       "websiteUrl": "#"
-    },
-    {
-      "id": "mentor-5",
-      "name": "Malik Obansa",
-      "bio": "Full-stack developer and open-source enthusiast. Passionate about building with modern web technologies.",
-      "expertise": ["Next.js", "React", "Firebase", "Node.js"],
-      "avatar": "https://picsum.photos/seed/malik/100/100",
-      "githubUrl": "https://github.com/malikobansa",
-      "websiteUrl": "https://obansa.com"
     }
   ],
   "challenges": [
@@ -209,6 +209,14 @@
       "title": "Workshop: Deep Dive into Next.js App Router",
       "speaker": "Community Mentor",
       "track": "Workshops"
+    },
+     {
+      "id": "sept-w1-2",
+      "date": "September 5, 2024",
+      "time": "4:00 PM",
+      "title": "Talk: Intro to Firebase for Web Devs",
+      "speaker": "Firebase Team",
+      "track": "Talks"
     },
     {
       "id": "3",

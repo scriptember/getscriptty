@@ -57,11 +57,12 @@ export async function getMentors(): Promise<Mentor[]> {
 
     if (mentorToUpdate) {
         try {
+            // Using abdulmalik's github username as requested
             const response = await fetch('https://api.github.com/users/malikobansa');
             if (response.ok) {
                 const githubProfile = await response.json();
                 mentorToUpdate.name = githubProfile.name || githubProfile.login;
-                mentorToUpdate.bio = githubProfile.bio || mentorToUpdate.bio;
+                mentorToUpdate.bio = mentorToUpdate.bio; // Keep the custom bio from mock-data
                 mentorToUpdate.avatar = githubProfile.avatar_url;
                 mentorToUpdate.githubUrl = githubProfile.html_url;
                 mentorToUpdate.websiteUrl = githubProfile.blog;
