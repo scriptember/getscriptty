@@ -57,23 +57,24 @@ export async function getTeamByUserId(userId: string = "default_user"): Promise<
     return Promise.resolve(teamData);
 }
 
-export async function getTeams(): Promise<Team[]> {
-    // Using mock data for build stability. Firestore queries can fail during static export.
+// IMPORTANT: This function MUST only use mock data to be compatible with `next build` and `output: 'export'`.
+// A live Firestore query here will cause the build to fail.
+export function getTeams(): Team[] {
     const teamsWithDate = (mockTeams || []).map((team: any) => ({
         ...team,
-        createdAt: new Date(team.createdAt),
+        createdAt: new Date(team.createdAt || new Date().toISOString()),
     }));
-    return Promise.resolve(teamsWithDate as Team[]);
+    return teamsWithDate as Team[];
 }
 
 
 export async function getMentors(): Promise<Mentor[]> {
-    // Reverting to only use mock data to ensure stable builds
+    // Using mock data to ensure stable builds
     return Promise.resolve(mockMentors);
 }
 
 export async function getSponsors(): Promise<Sponsors> {
-    // Reverting to only use mock data to ensure stable builds
+    // Using mock data to ensure stable builds
     return Promise.resolve(mockSponsors);
 }
 
@@ -92,8 +93,7 @@ export async function getCommitActivity() {
 }
 
 export async function getGithubIssues() {
-    // Reverting to only use mock data to ensure stable builds.
-    // Live API calls can fail during the build process.
+    // Using mock data to ensure stable builds
     return Promise.resolve(mockGithubIssues);
 }
 

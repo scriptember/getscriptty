@@ -17,13 +17,10 @@ export default function ProjectsPage() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    async function loadTeams() {
-      setIsLoading(true);
-      const fetchedTeams = await getTeams();
-      setTeams(fetchedTeams);
-      setIsLoading(false);
-    }
-    loadTeams();
+    // getTeams is now synchronous and uses mock data
+    const fetchedTeams = getTeams();
+    setTeams(fetchedTeams);
+    setIsLoading(false);
   }, []);
 
   // This placeholder action is for the AiTitleForm, which is not fully implemented in static export mode.
@@ -92,7 +89,7 @@ export default function ProjectsPage() {
                         <CardHeader>
                             <CardTitle className="text-xl text-foreground">{team.name}</CardTitle>
                              <CardDescription>
-                                Submitted {formatDistanceToNow(team.createdAt, { addSuffix: true })}
+                                Submitted {formatDistanceToNow(new Date(team.createdAt), { addSuffix: true })}
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="flex-grow">
