@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -24,7 +25,7 @@ const formSchema = z.object({
 });
 
 interface AiTitleFormProps {
-    generateTitleAction: (input: { tags: string[] }) => Promise<{ title: string }>;
+    generateTitleAction?: (input: { tags: string[] }) => Promise<{ title: string }>;
 }
 
 export default function AiTitleForm({ generateTitleAction }: AiTitleFormProps) {
@@ -41,6 +42,15 @@ export default function AiTitleForm({ generateTitleAction }: AiTitleFormProps) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!generateTitleAction) {
+        toast({
+            variant: "destructive",
+            title: "Feature Not Available",
+            description: "AI title generation is not configured for this environment."
+        });
+        return;
+    }
+
     setIsLoading(true);
     setGeneratedTitle("");
     const tagsArray = values.tags.split(",").map((tag) => tag.trim()).filter(Boolean);

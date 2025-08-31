@@ -1,7 +1,6 @@
 
 import AiTitleForm from "@/components/ai-title-form";
 import { Bot, FileCode2, Lightbulb } from "lucide-react";
-import { generateProjectTitle } from "@/ai/flows/project-title-generator";
 import { getTeams } from "@/services/data-service";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
@@ -11,6 +10,14 @@ import { Button } from "@/components/ui/button";
 
 export default async function ProjectsPage() {
   const teams = await getTeams();
+
+  // In a real application with a server, you would pass the actual server action.
+  // For a static export, we cannot include server-side code directly.
+  const generateTitleAction = async (input: { tags: string[] }) => {
+    console.log("AI title generation called with:", input.tags);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return { title: `Awesome ${input.tags.join(" ")} Project` };
+  };
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
@@ -27,7 +34,7 @@ export default async function ProjectsPage() {
       </div>
       
       <div className="max-w-2xl mx-auto">
-        <AiTitleForm generateTitleAction={generateProjectTitle}/>
+        <AiTitleForm generateTitleAction={generateTitleAction}/>
       </div>
 
       <div className="mt-20">
