@@ -91,8 +91,7 @@ export async function getSponsors(): Promise<Sponsors> {
 
     if (sponsorToUpdate) {
         try {
-            // Using 'firebase' as a placeholder for the 'scriptember' GitHub org
-            const response = await fetch('https://api.github.com/orgs/firebase');
+            const response = await fetch('https://api.github.com/orgs/scriptember');
             if (response.ok) {
                 const githubOrg = await response.json();
                 sponsorToUpdate.name = githubOrg.name || githubOrg.login;
