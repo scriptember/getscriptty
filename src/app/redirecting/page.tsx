@@ -9,7 +9,7 @@ export default function RedirectingPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push('/'); // Redirect to homepage after 3 seconds
+      router.push('/dashboard'); // Redirect to dashboard after 3 seconds
     }, 3000); // 3-second interval
 
     // Cleanup the timer if the component unmounts

@@ -116,7 +116,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         title: "Authentication Successful",
         description: "Welcome! You are now logged in.",
       });
-      router.push("/dashboard");
+      router.push("/redirecting");
     } catch (error) {
       console.error("Error signing in with Google: ", error);
       toast({
@@ -137,7 +137,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         title: "Logged Out",
         description: "You have been successfully logged out.",
       });
-      router.push("/");
+      router.push("/redirecting");
     } catch (error) {
       console.error("Error signing out: ", error);
       toast({
