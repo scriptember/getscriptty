@@ -11,6 +11,15 @@
       "websiteUrl": "https://obansa.com"
     }
   ],
+  "sponsors": {
+    "gold": [
+      {
+        "name": "Scriptember",
+        "logoUrl": "https://picsum.photos/seed/scriptember/250/120",
+        "site": "#"
+      }
+    ]
+  },
   "challenges": [
     {
       "id": "chal-beg-1",

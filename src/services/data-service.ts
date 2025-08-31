@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams } = data;
+const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams, sponsors: mockSponsors } = data;
 
 interface Challenge {
     id: string;
@@ -22,6 +22,16 @@ interface Mentor {
     avatar: string;
     githubUrl?: string;
     websiteUrl?: string;
+}
+
+interface SponsorTier {
+    name: string;
+    logoUrl: string;
+    site: string;
+}
+
+interface Sponsors {
+    gold: SponsorTier[];
 }
 
 interface ScheduleItem {
@@ -74,6 +84,29 @@ export async function getMentors(): Promise<Mentor[]> {
     
     return Promise.resolve(mentors);
 }
+
+export async function getSponsors(): Promise<Sponsors> {
+    const sponsors: Sponsors = JSON.parse(JSON.stringify(mockSponsors));
+    const sponsorToUpdate = sponsors.gold.find(s => s.name.toLowerCase() === 'scriptember');
+
+    if (sponsorToUpdate) {
+        try {
+            // Using 'firebase' as a placeholder for the 'scriptember' GitHub org
+            const response = await fetch('https://api.github.com/orgs/firebase');
+            if (response.ok) {
+                const githubOrg = await response.json();
+                sponsorToUpdate.name = githubOrg.name || githubOrg.login;
+                sponsorToUpdate.logoUrl = githubOrg.avatar_url;
+                sponsorToUpdate.site = githubOrg.blog || githubOrg.html_url;
+            }
+        } catch (error) {
+            console.error("Failed to fetch sponsor org from GitHub", error);
+        }
+    }
+    
+    return Promise.resolve(sponsors);
+}
+
 
 export async function getChallenges(): Promise<Challenge[]> {
    return Promise.resolve(challenges);
