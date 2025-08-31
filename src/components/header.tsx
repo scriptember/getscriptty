@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -40,6 +41,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
+        {/* Desktop Navigation */}
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo />
@@ -65,17 +67,57 @@ export default function Header() {
               )}
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-             <Link href="/" className="md:hidden flex items-center space-x-2">
+        
+        {/* Mobile Navigation */}
+        <div className="flex w-full items-center justify-between md:hidden">
+            <Link href="/" className="flex items-center space-x-2">
                 <Logo />
             </Link>
-            <Button className="md:hidden absolute top-2.5 right-16" variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X/> : <Menu/>}
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </div>
-          <nav className="flex items-center">
+            <div className="flex items-center gap-2">
+                 {loading ? <Skeleton className="h-8 w-20" /> : (
+                  <>
+                    {user ? (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                            <Avatar className="h-8 w-8">
+                              <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? 'User'} />
+                              <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56" align="end" forceMount>
+                          <DropdownMenuLabel className="font-normal">
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium leading-none">{user.displayName}</p>
+                              <p className="text-xs leading-none text-muted-foreground">
+                                {user.email}
+                              </p>
+                            </div>
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={() => logout()}>
+                            Log out
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    ) : (
+                      <Button asChild size="sm">
+                        <Link href="/register">Register</Link>
+                      </Button>
+                    )}
+                  </>
+                )}
+                <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  {isMenuOpen ? <X/> : <Menu/>}
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+            </div>
+        </div>
+
+        {/* Right side of desktop nav */}
+        <div className="flex flex-1 items-center justify-end space-x-2">
+          <nav className="hidden md:flex items-center">
              {loading ? <Skeleton className="h-8 w-20" /> : (
               <>
                 {user ? (
