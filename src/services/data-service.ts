@@ -63,7 +63,7 @@ export async function getTeams(): Promise<Team[]> {
 
 export async function getMentors(): Promise<Mentor[]> {
     const mentors: Mentor[] = [...mockMentors];
-    const mentorToUpdate = mentors.find(m => m.id === 'mentor-5');
+    const mentorToUpdate = mentors.find(m => m.name.toLowerCase() === 'abdulmalik');
 
     if (mentorToUpdate) {
         try {
@@ -141,6 +141,14 @@ export async function createTeam(teamName: string, projectIdea: string): Promise
     const docRef = await addDoc(collection(db, "teams"), {
         name: teamName,
         projectIdea: projectIdea,
+        createdAt: serverTimestamp(),
+    });
+    return docRef.id;
+}
+
+export async function createSponsorApplication(applicationData: { companyName: string, contactName: string, contactEmail: string, sponsorshipLevel: string, reason?: string }): Promise<string> {
+    const docRef = await addDoc(collection(db, "sponsorshipApplications"), {
+        ...applicationData,
         createdAt: serverTimestamp(),
     });
     return docRef.id;

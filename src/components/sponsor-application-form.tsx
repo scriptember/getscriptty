@@ -28,6 +28,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
+import { createSponsorApplication } from "@/services/data-service";
 
 const formSchema = z.object({
   companyName: z.string().min(2, "Company name is required."),
@@ -55,18 +56,23 @@ export default function SponsorApplicationForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    console.log("Submitting sponsor application:", values);
-
-    // Simulate an API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Application Sent!",
-      description: "Thank you for your interest in sponsoring Scriptember. We will be in touch shortly.",
-    });
-
-    router.push("/sponsors");
-    setIsLoading(false);
+    try {
+      await createSponsorApplication(values);
+      toast({
+        title: "Application Sent!",
+        description: "Thank you for your interest in sponsoring Scriptember. We will be in touch shortly.",
+      });
+      router.push("/sponsors");
+    } catch (error) {
+      console.error("Error creating sponsor application:", error);
+      toast({
+          variant: "destructive",
+          title: "Submission Error",
+          description: "Could not submit your application. Please try again later."
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
