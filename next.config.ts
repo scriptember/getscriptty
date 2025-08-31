@@ -3,7 +3,7 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/scriptember25',
+  basePath: '/getscriptty',
   images: {
     unoptimized: true,
     remotePatterns: [
