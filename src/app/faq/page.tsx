@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     question: "What are the prizes?",
-    answer: "We have a wide range of prizes including cash, software licenses, hardware, and exclusive swag from our sponsors. Prizes will be awarded to the top overall projects as well as winners of specific challenges.",
+    answer: "Prizes include exclusive merchandise and certificates. Winners may also get the opportunity to work with the #ScriptEmber Team. Cash prizes are currently a work in progress.",
   },
   {
     question: "How can I contact the organizers?",
