@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     question: "How can I contact the organizers?",
-    answer: "The best way to reach us is through the #help channel on our official Discord server. You can also email us at scriptember@example.com for specific inquiries.",
+    answer: "The best way to reach us is through the #help channel on our official Discord server. You can also email us at scriptember on Linkedin",
   },
   {
       question: "Can I work on an existing project?",
