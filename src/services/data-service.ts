@@ -1,6 +1,4 @@
 
-import { db } from '@/lib/firebase';
-import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
 const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, sponsors: mockSponsors, teams: mockTeams } = data;
@@ -52,9 +50,9 @@ export interface Team {
 }
 
 // In a real app, you would pass the user's ID to this function
-export async function getTeamByUserId(userId: string = "default_user"): Promise<any | null> {
+export function getTeamByUserId(userId: string = "default_user"): any | null {
     // Simulating fetching data for a static build
-    return Promise.resolve(teamData);
+    return teamData;
 }
 
 // IMPORTANT: This function MUST only use mock data to be compatible with `next build` and `output: 'export'`.
@@ -68,49 +66,31 @@ export function getTeams(): Team[] {
 }
 
 
-export async function getMentors(): Promise<Mentor[]> {
+export function getMentors(): Mentor[] {
     // Using mock data to ensure stable builds
-    return Promise.resolve(mockMentors);
+    return mockMentors;
 }
 
-export async function getSponsors(): Promise<Sponsors> {
+export function getSponsors(): Sponsors {
     // Using mock data to ensure stable builds
-    return Promise.resolve(mockSponsors);
+    return mockSponsors;
 }
 
 
-export async function getChallenges(): Promise<Challenge[]> {
-   return Promise.resolve(challenges);
+export function getChallenges(): Challenge[] {
+   return challenges;
 }
 
-export async function getSchedule(): Promise<ScheduleItem[]> {
-    return Promise.resolve(schedule);
+export function getSchedule(): ScheduleItem[] {
+    return schedule;
 }
 
-export async function getCommitActivity() {
+export function getCommitActivity() {
     // Simulating fetching data for a static build
-    return Promise.resolve(commitActivity);
+    return commitActivity;
 }
 
-export async function getGithubIssues() {
+export function getGithubIssues() {
     // Using mock data to ensure stable builds
-    return Promise.resolve(mockGithubIssues);
-}
-
-// Write operations are fine as they are called from client components, not during build.
-export async function createTeam(teamName: string, projectIdea: string): Promise<string> {
-    const docRef = await addDoc(collection(db, "teams"), {
-        name: teamName,
-        projectIdea: projectIdea,
-        createdAt: serverTimestamp(),
-    });
-    return docRef.id;
-}
-
-export async function createSponsorApplication(applicationData: { companyName: string, contactName: string, contactEmail: string, sponsorshipLevel: string, reason?: string }): Promise<string> {
-    const docRef = await addDoc(collection(db, "sponsorshipApplications"), {
-        ...applicationData,
-        createdAt: serverTimestamp(),
-    });
-    return docRef.id;
+    return mockGithubIssues;
 }

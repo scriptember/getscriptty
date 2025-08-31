@@ -28,7 +28,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
-import { createSponsorApplication } from "@/services/data-service";
+import { createSponsorApplication } from "@/services/actions";
 
 const formSchema = z.object({
   companyName: z.string().min(2, "Company name is required."),

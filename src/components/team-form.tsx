@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -19,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Rocket } from "lucide-react";
-import { createTeam } from "@/services/data-service";
+import { createTeam } from "@/services/actions";
 
 const formSchema = z.object({
   teamName: z.string().min(3, "Team name must be at least 3 characters long.").max(50, "Team name must be 50 characters or less."),
