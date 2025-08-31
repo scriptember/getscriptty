@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, QueryDocumentSnapshot, DocumentData, query, where, limit, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import data from '@/lib/mock-data.json';
 
-const { mentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams } = data;
+const { mentors: mockMentors, challenges, schedule, teamData, commitActivity, githubIssues: mockGithubIssues, teams: mockTeams } = data;
 
 interface Challenge {
     id: string;
@@ -50,6 +50,23 @@ export async function getTeams(): Promise<Team[]> {
 
 
 export async function getMentors(): Promise<Mentor[]> {
+    const mentors = [...mockMentors];
+    const mentorToUpdate = mentors.find(m => m.id === 'mentor-5');
+
+    if (mentorToUpdate) {
+        try {
+            const response = await fetch('https://api.github.com/users/malikobansa');
+            if (response.ok) {
+                const githubProfile = await response.json();
+                mentorToUpdate.name = githubProfile.name || githubProfile.login;
+                mentorToUpdate.bio = githubProfile.bio || mentorToUpdate.bio;
+                mentorToUpdate.avatar = githubProfile.avatar_url;
+            }
+        } catch (error) {
+            console.error("Failed to fetch mentor profile from GitHub", error);
+        }
+    }
+    
     return Promise.resolve(mentors);
 }
 
