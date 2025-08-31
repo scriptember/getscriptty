@@ -19,16 +19,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Wand2, Copy, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "./ui/skeleton";
+import { generateProjectTitle } from "@/ai/flows/project-title-generator";
 
 const formSchema = z.object({
   tags: z.string().min(1, "Please enter at least one tag."),
 });
 
-interface AiTitleFormProps {
-    generateTitleAction?: (input: { tags: string[] }) => Promise<{ title: string }>;
-}
-
-export default function AiTitleForm({ generateTitleAction }: AiTitleFormProps) {
+export default function AiTitleForm() {
   const [generatedTitle, setGeneratedTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
@@ -42,21 +39,12 @@ export default function AiTitleForm({ generateTitleAction }: AiTitleFormProps) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!generateTitleAction) {
-        toast({
-            variant: "destructive",
-            title: "Feature Not Available",
-            description: "AI title generation is not configured for this environment."
-        });
-        return;
-    }
-
     setIsLoading(true);
     setGeneratedTitle("");
     const tagsArray = values.tags.split(",").map((tag) => tag.trim()).filter(Boolean);
 
     try {
-        const result = await generateTitleAction({ tags: tagsArray });
+        const result = await generateProjectTitle({ tags: tagsArray });
         setGeneratedTitle(result.title);
     } catch (error) {
         console.error("Error generating title:", error);

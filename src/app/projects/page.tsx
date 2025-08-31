@@ -17,18 +17,10 @@ export default function ProjectsPage() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    // getTeams is now synchronous and uses mock data
     const fetchedTeams = getTeams();
     setTeams(fetchedTeams);
     setIsLoading(false);
   }, []);
-
-  // This placeholder action is for the AiTitleForm, which is not fully implemented in static export mode.
-  const generateTitleAction = async (input: { tags: string[] }) => {
-    console.log("AI title generation called with:", input.tags);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return { title: `Awesome ${input.tags.join(" ")} Project` };
-  };
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
@@ -45,7 +37,7 @@ export default function ProjectsPage() {
       </div>
       
       <div className="max-w-2xl mx-auto">
-        <AiTitleForm generateTitleAction={generateTitleAction}/>
+        <AiTitleForm />
       </div>
 
       <div className="mt-20">
