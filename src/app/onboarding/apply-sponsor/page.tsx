@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Handshake, Mail } from "lucide-react";
-import Link from "next/link";
+import SponsorApplicationForm from "@/components/sponsor-application-form";
+import { Handshake } from "lucide-react";
 
 export default function ApplySponsorPage() {
   return (
@@ -19,22 +17,7 @@ export default function ApplySponsorPage() {
       </div>
       
       <div className="max-w-2xl mx-auto">
-         <Card className="bg-card/50 border-border/50 text-center">
-            <CardHeader>
-                <CardTitle>Partner With Us</CardTitle>
-                <CardDescription>
-                    We offer a variety of sponsorship packages to fit your goals.
-                    Reach out to our team to learn more about the opportunities available.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button asChild size="lg">
-                    <a href="mailto:sponsors@scriptember.example.com">
-                        <Mail className="mr-2"/> Contact Us
-                    </a>
-                </Button>
-            </CardContent>
-         </Card>
+        <SponsorApplicationForm />
       </div>
     </div>
   );
