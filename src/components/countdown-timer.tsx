@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import Confetti from "react-confetti";
+import { Skeleton } from "./ui/skeleton";
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -15,15 +16,10 @@ export default function CountdownTimer() {
   const [isMounted, setIsMounted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [targetDate, setTargetDate] = useState(new Date());
 
   useEffect(() => {
     setIsMounted(true);
     
-    const currentYear = new Date().getFullYear();
-    const startDate = new Date(`${currentYear}-09-01T00:00:00+01:00`);
-    setTargetDate(startDate);
-
     const handleResize = () => {
         if (typeof window !== 'undefined') {
             setWindowSize({
@@ -33,8 +29,8 @@ export default function CountdownTimer() {
         }
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    const currentYear = new Date().getFullYear();
+    const startDate = new Date(`${currentYear}-09-01T00:00:00+01:00`);
     
     const confettiEndDate = new Date(startDate.getTime());
     confettiEndDate.setDate(startDate.getDate() + 1);
@@ -60,6 +56,9 @@ export default function CountdownTimer() {
       }
     }, 1000);
 
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
     return () => {
         clearInterval(interval);
         window.removeEventListener('resize', handleResize);
@@ -75,11 +74,14 @@ export default function CountdownTimer() {
         <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
           {[...Array(4)].map((_, i) => (
              <Card key={i} className="p-4 md:p-6 bg-card/50">
-               <div className="text-4xl md:text-6xl font-bold font-mono text-foreground">--</div>
-               <div className="text-sm text-muted-foreground mt-2">&nbsp;</div>
+               <Skeleton className="h-[56px] w-full" />
+               <Skeleton className="h-4 w-1/2 mx-auto mt-2"/>
              </Card>
           ))}
         </div>
+        <p className="text-sm text-muted-foreground mt-6">
+            Timezone: Africa/Lagos (UTC+1)
+        </p>
       </div>
     );
   }
