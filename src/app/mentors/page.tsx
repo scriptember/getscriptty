@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github, Globe, Briefcase, Users } from "lucide-react";
+import { Github, Globe, Briefcase, Users, Plus } from "lucide-react";
 import { getMentors } from "@/services/data-service";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
@@ -71,6 +71,18 @@ export default async function MentorsPage() {
                 </div>
                 </CardFooter>
             </Card>
+            ))}
+             <Link href="/onboarding/apply-mentor" className="h-full">
+                <Card className="flex flex-col text-center bg-card/50 border-dashed border-border/50 transition-all hover:shadow-lg hover:border-primary/50 transform hover:-translate-y-1 h-full items-center justify-center">
+                    <div className="flex flex-col items-center justify-center p-6">
+                        <Plus className="h-16 w-16 text-muted-foreground transition-colors group-hover:text-primary" />
+                        <p className="mt-4 text-muted-foreground font-semibold">Apply to be a Mentor</p>
+                    </div>
+                </Card>
+            </Link>
+            {[...Array(2)].map((_, i) => (
+                 <Card key={i} className="flex flex-col text-center bg-card/50 border-dashed border-border/50 h-full items-center justify-center">
+                 </Card>
             ))}
         </div>
       )}

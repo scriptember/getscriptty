@@ -9,42 +9,6 @@
       "avatar": "https://picsum.photos/seed/malik/100/100",
       "githubUrl": "https://github.com/malikobansa",
       "websiteUrl": "https://obansa.com"
-    },
-    {
-      "id": "mentor-1",
-      "name": "Grace Hopper",
-      "bio": "Pioneering computer scientist and inventor of the first compiler. Expert in system design and low-level programming.",
-      "expertise": ["Compilers", "COBOL", "System Architecture"],
-      "avatar": "https://picsum.photos/seed/grace/100/100",
-      "githubUrl": "#",
-      "websiteUrl": "#"
-    },
-    {
-      "id": "mentor-2",
-      "name": "Ada Lovelace",
-      "bio": "The first computer programmer, known for her work on the Analytical Engine. Passionate about algorithmic thinking.",
-      "expertise": ["Algorithms", "Mathematical Computing", "Analytics"],
-      "avatar": "https://picsum.photos/seed/ada/100/100",
-      "githubUrl": "#",
-      "websiteUrl": "#"
-    },
-    {
-      "id": "mentor-3",
-      "name": "John Carmack",
-      "bio": "Legendary game programmer and co-founder of id Software. Specialist in 3D graphics, performance optimization, and VR.",
-      "expertise": ["3D Graphics", "Game Engines", "C++", "Performance"],
-      "avatar": "https://picsum.photos/seed/carmack/100/100",
-      "githubUrl": "#",
-      "websiteUrl": "#"
-    },
-    {
-      "id": "mentor-4",
-      "name": "Linus Torvalds",
-      "bio": "Creator of the Linux kernel and Git. A leading voice in open-source development and version control.",
-      "expertise": ["Operating Systems", "Git", "C", "Open Source"],
-      "avatar": "https://picsum.photos/seed/linus/100/100",
-      "githubUrl": "#",
-      "websiteUrl": "#"
     }
   ],
   "challenges": [
