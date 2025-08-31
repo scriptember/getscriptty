@@ -20,6 +20,8 @@ interface Mentor {
     bio: string;
     expertise: string[];
     avatar: string;
+    githubUrl?: string;
+    websiteUrl?: string;
 }
 
 interface ScheduleItem {
@@ -50,7 +52,7 @@ export async function getTeams(): Promise<Team[]> {
 
 
 export async function getMentors(): Promise<Mentor[]> {
-    const mentors = [...mockMentors];
+    const mentors: Mentor[] = [...mockMentors];
     const mentorToUpdate = mentors.find(m => m.id === 'mentor-5');
 
     if (mentorToUpdate) {
@@ -61,6 +63,8 @@ export async function getMentors(): Promise<Mentor[]> {
                 mentorToUpdate.name = githubProfile.name || githubProfile.login;
                 mentorToUpdate.bio = githubProfile.bio || mentorToUpdate.bio;
                 mentorToUpdate.avatar = githubProfile.avatar_url;
+                mentorToUpdate.githubUrl = githubProfile.html_url;
+                mentorToUpdate.websiteUrl = githubProfile.blog;
             }
         } catch (error) {
             console.error("Failed to fetch mentor profile from GitHub", error);

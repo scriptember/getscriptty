@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Github, Globe, Briefcase, Users } from "lucide-react";
 import { getMentors } from "@/services/data-service";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Link from "next/link";
 
 export default async function MentorsPage() {
   const mentors = await getMentors();
@@ -57,8 +58,16 @@ export default async function MentorsPage() {
                     <Briefcase className="mr-2 h-4 w-4" /> View Office Hours
                 </Button>
                 <div className="flex gap-4">
-                    <Github className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                    <Globe className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                    {mentor.githubUrl && (
+                        <Link href={mentor.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <Github className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                        </Link>
+                    )}
+                    {mentor.websiteUrl && (
+                        <Link href={mentor.websiteUrl} target="_blank" rel="noopener noreferrer">
+                            <Globe className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                        </Link>
+                    )}
                 </div>
                 </CardFooter>
             </Card>
