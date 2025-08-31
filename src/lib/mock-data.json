@@ -28,6 +28,13 @@
       "bio": "Creator of the Linux kernel and Git. A leading voice in open-source development and version control.",
       "expertise": ["Operating Systems", "Git", "C", "Open Source"],
       "avatar": "https://picsum.photos/seed/linus/100/100"
+    },
+    {
+      "id": "mentor-5",
+      "name": "Malik Obansa",
+      "bio": "Full-stack developer and open-source enthusiast. Passionate about building with modern web technologies.",
+      "expertise": ["Next.js", "React", "Firebase", "Node.js"],
+      "avatar": "https://picsum.photos/seed/malik/100/100"
     }
   ],
   "challenges": [
