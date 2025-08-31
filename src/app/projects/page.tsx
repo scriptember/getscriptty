@@ -1,18 +1,32 @@
 
+"use client";
+
+import * as React from "react";
 import AiTitleForm from "@/components/ai-title-form";
 import { Bot, FileCode2, Lightbulb } from "lucide-react";
-import { getTeams } from "@/services/data-service";
+import { getTeams, type Team } from "@/services/data-service";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function ProjectsPage() {
-  const teams = await getTeams();
+export default function ProjectsPage() {
+  const [teams, setTeams] = React.useState<Team[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  // In a real application with a server, you would pass the actual server action.
-  // For a static export, we cannot include server-side code directly.
+  React.useEffect(() => {
+    async function loadTeams() {
+      setIsLoading(true);
+      const fetchedTeams = await getTeams();
+      setTeams(fetchedTeams);
+      setIsLoading(false);
+    }
+    loadTeams();
+  }, []);
+
+  // This placeholder action is for the AiTitleForm, which is not fully implemented in static export mode.
   const generateTitleAction = async (input: { tags: string[] }) => {
     console.log("AI title generation called with:", input.tags);
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -46,7 +60,21 @@ export default async function ProjectsPage() {
               See what other teams are building.
             </p>
           </div>
-          {teams.length === 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(3)].map((_, i) => (
+                <Card key={i} className="flex flex-col bg-card/50 border-border/50">
+                  <CardHeader>
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2 mt-2" />
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-12 w-full" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : teams.length === 0 ? (
              <Alert className="max-w-xl mx-auto">
                 <FileCode2 className="h-4 w-4" />
                 <AlertTitle>No Projects Submitted Yet!</AlertTitle>
