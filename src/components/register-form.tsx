@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -30,9 +31,11 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const [isSocialLoading, setIsSocialLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { user, signInWithGoogle } = useAuth();
+  const [authMode, setAuthMode] = useState<'signin' | 'register'>('register');
+  const { user, signInWithGoogle, signInWithGitHub, createUserWithEmail, signInWithEmail } = useAuth();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,36 +48,43 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (user) {
-      router.push("/dashboard");
+      router.push("/redirecting");
     }
   }, [user, router]);
   
-  // We're focusing on Google Auth, so we'll disable email/password for now.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Email/password login is disabled in this demo.", values);
+    setIsEmailLoading(true);
+    if (authMode === 'register') {
+      await createUserWithEmail(values.email, values.password);
+    } else {
+      await signInWithEmail(values.email, values.password);
+    }
+    setIsEmailLoading(false);
   }
 
   const handleSocialLogin = async (provider: "google" | "github") => {
-    setIsLoading(true);
+    setIsSocialLoading(true);
     if (provider === 'google') {
         await signInWithGoogle();
-    } else {
-        console.log("GitHub login not implemented in this version.");
+    } else if (provider === 'github') {
+        await signInWithGitHub();
     }
-    setIsLoading(false);
+    setIsSocialLoading(false);
   };
   
   return (
     <Card className="bg-card/50 border-border/50">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Register or Sign In</CardTitle>
+        <CardTitle className="text-2xl text-center">
+            {authMode === 'register' ? 'Create an Account' : 'Sign In'}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">
-             <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={isLoading}>
+             <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={isSocialLoading || isEmailLoading}>
                 <GoogleIcon className="mr-2 h-5 w-5"/> Continue with Google
             </Button>
-            <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={true}>
+            <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={isSocialLoading || isEmailLoading}>
                 <Github className="mr-2 h-5 w-5"/> Continue with GitHub
             </Button>
         </div>
@@ -98,7 +108,7 @@ export default function RegisterForm() {
                       type="email"
                       placeholder="you@example.com"
                       {...field}
-                      disabled={true}
+                      disabled={isEmailLoading || isSocialLoading}
                     />
                   </FormControl>
                   <FormMessage />
@@ -117,7 +127,7 @@ export default function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         placeholder="********"
                         {...field}
-                        disabled={true}
+                        disabled={isEmailLoading || isSocialLoading}
                       />
                        <Button
                         type="button"
@@ -125,7 +135,7 @@ export default function RegisterForm() {
                         size="icon"
                         className="absolute top-1/2 right-2 -translate-y-1/2 h-7 w-7"
                         onClick={() => setShowPassword(!showPassword)}
-                        disabled={true}
+                        disabled={isEmailLoading || isSocialLoading}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         <span className="sr-only">
@@ -138,11 +148,28 @@ export default function RegisterForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={true} className="w-full">
-              Continue with Email (Disabled)
+            <Button type="submit" disabled={isEmailLoading || isSocialLoading} className="w-full">
+                {isEmailLoading ? 'Processing...' : (authMode === 'register' ? 'Create Account' : 'Sign In')}
             </Button>
           </form>
         </Form>
+        <div className="mt-4 text-center text-sm">
+            {authMode === 'register' ? (
+                <>
+                    Already have an account?{' '}
+                    <Button variant="link" className="p-0 h-auto" onClick={() => setAuthMode('signin')}>
+                        Sign In
+                    </Button>
+                </>
+            ) : (
+                 <>
+                    Don't have an account?{' '}
+                    <Button variant="link" className="p-0 h-auto" onClick={() => setAuthMode('register')}>
+                        Register
+                    </Button>
+                </>
+            )}
+        </div>
       </CardContent>
     </Card>
   );
