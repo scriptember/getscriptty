@@ -49,65 +49,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleUserAuth = async (firebaseUser: FirebaseUser) => {
+  const handleLogin = (firebaseUser: FirebaseUser, appUser: AppUser) => {
+    setUser(appUser);
+    toast({
+        title: "Authentication Successful",
+        description: `Welcome, ${appUser.displayName || appUser.email}!`,
+    });
+    router.push("/redirecting");
+  }
+
+  const manageUserDocument = async (firebaseUser: FirebaseUser): Promise<AppUser> => {
       const userRef = doc(db, "users", firebaseUser.uid);
       const docSnap = await getDoc(userRef);
 
-      let appUser: AppUser;
-
       if (docSnap.exists()) {
-          appUser = {
-              uid: firebaseUser.uid,
-              displayName: firebaseUser.displayName,
-              email: firebaseUser.email,
-              photoURL: firebaseUser.photoURL,
-              isAdmin: docSnap.data()?.isAdmin || false,
-          };
+          return docSnap.data() as AppUser;
       } else {
-          appUser = {
+          const newAppUser: AppUser = {
               uid: firebaseUser.uid,
               displayName: firebaseUser.displayName,
               email: firebaseUser.email,
               photoURL: firebaseUser.photoURL,
               isAdmin: false,
           };
-          await setDoc(userRef, appUser);
+          try {
+            await setDoc(userRef, newAppUser);
+          } catch (error) {
+              console.error("Error creating user document:", error);
+              // We can choose to ignore this error and still let the user log in.
+              // The app can function without the DB record, they just won't be an admin.
+          }
+          return newAppUser;
       }
-      setUser(appUser);
-      
-      toast({
-          title: "Authentication Successful",
-          description: `Welcome, ${appUser.displayName || appUser.email}!`,
-      });
-      router.push("/redirecting");
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const userRef = doc(db, "users", firebaseUser.uid);
-        const docSnap = await getDoc(userRef);
-
-        if (docSnap.exists()) {
-          const appUser = {
-            uid: firebaseUser.uid,
-            displayName: firebaseUser.displayName,
-            email: firebaseUser.email,
-            photoURL: firebaseUser.photoURL,
-            isAdmin: docSnap.data()?.isAdmin || false,
-          } as AppUser;
-          setUser(appUser);
-        } else {
-            const newUserDoc: AppUser = {
-                uid: firebaseUser.uid,
-                displayName: firebaseUser.displayName,
-                email: firebaseUser.email,
-                photoURL: firebaseUser.photoURL,
-                isAdmin: false,
-            };
-            await setDoc(userRef, newUserDoc);
-            setUser(newUserDoc);
-        }
+        const appUser = await manageUserDocument(firebaseUser);
+        setUser(appUser);
       } else {
         setUser(null);
       }
@@ -121,7 +101,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
         const result = await signInWithPopup(auth, provider);
-        await handleUserAuth(result.user);
+        const appUser = await manageUserDocument(result.user);
+        handleLogin(result.user, appUser);
     } catch (error: any) {
         console.error("Error signing in with provider:", error);
         toast({
@@ -148,7 +129,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
         const result = await createUserWithEmailAndPassword(auth, email, pass);
-        await handleUserAuth(result.user);
+        const appUser = await manageUserDocument(result.user);
+        handleLogin(result.user, appUser);
     } catch (error: any) {
          console.error("Error creating user:", error);
          toast({
@@ -165,7 +147,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
         const result = await signInWithEmailAndPassword(auth, email, pass);
-        await handleUserAuth(result.user);
+        const appUser = await manageUserDocument(result.user);
+        handleLogin(result.user, appUser);
     } catch (error: any) {
          console.error("Error signing in:", error);
          toast({
