@@ -29,8 +29,7 @@ export default function CountdownTimer() {
         }
     };
 
-    const currentYear = new Date().getFullYear();
-    const startDate = new Date(`${currentYear}-09-01T00:00:00+01:00`);
+    const startDate = new Date(`2025-09-01T00:00:00+01:00`);
     
     const confettiEndDate = new Date(startDate.getTime());
     confettiEndDate.setDate(startDate.getDate() + 1);

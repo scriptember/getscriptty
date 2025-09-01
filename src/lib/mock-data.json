@@ -129,7 +129,7 @@
   "schedule": [
     {
       "id": "pre1",
-      "date": "August 29, 2024",
+      "date": "August 29, 2025",
       "time": "12:00 PM",
       "title": "Pre-Workshop: Setting up Your Dev Environment",
       "speaker": "The Scriptember Team",
@@ -137,7 +137,7 @@
     },
     {
       "id": "pre2",
-      "date": "August 30, 2024",
+      "date": "August 30, 2025",
       "time": "12:00 PM",
       "title": "Pre-Workshop: Intro to Git & GitHub",
       "speaker": "The Scriptember Team",
@@ -145,7 +145,7 @@
     },
     {
       "id": "pre3",
-      "date": "August 31, 2024",
+      "date": "August 31, 2025",
       "time": "1:00 PM",
       "title": "Pre-Workshop: JavaScript/TypeScript Crash Course",
       "speaker": "Community Mentors",
@@ -153,7 +153,7 @@
     },
     {
       "id": "pre4",
-      "date": "September 1, 2024",
+      "date": "September 1, 2025",
       "time": "1:00 PM",
       "title": "Pre-Workshop: React & Next.js Fundamentals",
       "speaker": "Community Mentors",
@@ -161,7 +161,7 @@
     },
     {
       "id": "1",
-      "date": "September 2, 2024",
+      "date": "September 2, 2025",
       "time": "10:00 AM",
       "title": "Opening Ceremony & Hackathon Kick-off",
       "speaker": "The Scriptember Team",
@@ -169,7 +169,7 @@
     },
     {
       "id": "2",
-      "date": "September 2, 2024",
+      "date": "September 2, 2025",
       "time": "11:00 AM",
       "title": "Keynote: The Future of JS in Open Source",
       "speaker": "Jane Doe, CEO of OpenTech",
@@ -177,7 +177,7 @@
     },
     {
       "id": "sept-w1-1",
-      "date": "September 5, 2024",
+      "date": "September 5, 2025",
       "time": "2:00 PM",
       "title": "Workshop: Deep Dive into Next.js App Router",
       "speaker": "Community Mentor",
@@ -185,7 +185,7 @@
     },
      {
       "id": "sept-w1-2",
-      "date": "September 5, 2024",
+      "date": "September 5, 2025",
       "time": "4:00 PM",
       "title": "Talk: Intro to Firebase for Web Devs",
       "speaker": "Firebase Team",
@@ -193,7 +193,7 @@
     },
     {
       "id": "3",
-      "date": "September 8, 2024",
+      "date": "September 8, 2025",
       "time": "2:00 PM",
       "title": "Workshop: Building with Genkit & Firebase",
       "speaker": "John Smith, Google",
@@ -201,7 +201,7 @@
     },
     {
       "id": "sept-w2-1",
-      "date": "September 11, 2024",
+      "date": "September 11, 2025",
       "time": "1:00 PM",
       "title": "Talk: Advanced Tailwind CSS Techniques",
       "speaker": "UI/UX Expert",
@@ -209,7 +209,7 @@
     },
      {
       "id": "sept-w2-2",
-      "date": "September 13, 2024",
+      "date": "September 13, 2025",
       "time": "3:00 PM",
       "title": "Workshop: UI/UX for Developers",
       "speaker": "Sarah Drasner",
@@ -217,7 +217,7 @@
     },
     {
       "id": "4",
-      "date": "September 15, 2024",
+      "date": "September 15, 2025",
       "time": "4:00 PM",
       "title": "Fireside Chat with Project Maintainers",
       "speaker": "Various Guests",
@@ -225,7 +225,7 @@
     },
     {
       "id": "sept-w3-1",
-      "date": "September 18, 2024",
+      "date": "September 18, 2025",
       "time": "2:00 PM",
       "title": "Workshop: State Management in React",
       "speaker": "Community Mentor",
@@ -233,7 +233,7 @@
     },
      {
       "id": "sept-w3-2",
-      "date": "September 20, 2024",
+      "date": "September 20, 2025",
       "time": "4:00 PM",
       "title": "Talk: Building Accessible Web Apps",
       "speaker": "Accessibility Advocate",
@@ -241,7 +241,7 @@
     },
     {
       "id": "sept-w4-1",
-      "date": "September 25, 2024",
+      "date": "September 25, 2025",
       "time": "3:00 PM",
       "title": "Workshop: Mastering Server Actions in Next.js",
       "speaker": "Community Mentor",
@@ -249,7 +249,7 @@
     },
     {
       "id": "sept-w4-2",
-      "date": "September 27, 2024",
+      "date": "September 27, 2025",
       "time": "5:00 PM",
       "title": "Talk: Preparing Your Project for Submission",
       "speaker": "The Scriptember Team",
@@ -257,7 +257,7 @@
     },
      {
       "id": "5",
-      "date": "October 1, 2024",
+      "date": "October 1, 2025",
       "time": "5:00 PM",
       "title": "Closing Ceremony & Prize Announcements",
       "speaker": "The Scriptember Team",
@@ -298,7 +298,7 @@
       "commit": {
         "author": {
           "name": "dev-one",
-          "date": "2024-09-06T15:08:44.204Z"
+          "date": "2025-09-06T15:08:44.204Z"
         },
         "message": "feat: Implement initial project structure"
       },
@@ -313,7 +313,7 @@
       "commit": {
         "author": {
           "name": "dev-two",
-          "date": "2024-09-06T14:08:44.204Z"
+          "date": "2025-09-06T14:08:44.204Z"
         },
         "message": "fix: Corrected typo in documentation"
       },
@@ -331,7 +331,7 @@
       "html_url": "#",
       "state": "open",
       "comments": 2,
-      "created_at": "2024-09-06T15:08:44.205Z",
+      "created_at": "2025-09-06T15:08:44.205Z",
       "user": {
         "login": "github-user",
         "html_url": "#"
@@ -351,7 +351,7 @@
       "html_url": "#",
       "state": "open",
       "comments": 5,
-      "created_at": "2024-09-05T15:08:44.205Z",
+      "created_at": "2025-09-05T15:08:44.205Z",
       "user": {
         "login": "another-user",
         "html_url": "#"

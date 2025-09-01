@@ -20,8 +20,7 @@ export default function HeroSlideshow() {
   useEffect(() => {
     setIsMounted(true);
     
-    const currentYear = new Date().getFullYear();
-    const targetDate = new Date(`${currentYear}-09-01T00:00:00+01:00`);
+    const targetDate = new Date(`2025-09-01T00:00:00+01:00`);
 
     const checkCountdown = () => {
       if (new Date() >= targetDate) {
