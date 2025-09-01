@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect } from 'react';
@@ -27,3 +28,4 @@ export default function RedirectingPage() {
     </div>
   );
 }
+
